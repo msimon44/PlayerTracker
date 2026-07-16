@@ -7,8 +7,14 @@ import { AuthService } from '../services/auth.service';
 export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     constructor(private readonly authService: AuthService) {
         super({
-            clientID: process.env['GOOGLE_CLIENT_ID'] || '',
-            clientSecret: process.env['GOOGLE_CLIENT_SECRET'] || '',
+            // passport-google-oauth20 rejette une chaîne vide et lève une exception
+            // synchrone au démarrage ("OAuth2Strategy requires a clientID option"),
+            // ce qui empêchait toute l'application de démarrer sans credentials
+            // Google réels (dev, tests, CI). Le contrôleur gère déjà la dégradation
+            // gracieuse (redirection 'google_not_configured') sur la route de
+            // callback ; ce fallback permet simplement d'atteindre ce code.
+            clientID: process.env['GOOGLE_CLIENT_ID'] || 'not-configured',
+            clientSecret: process.env['GOOGLE_CLIENT_SECRET'] || 'not-configured',
             callbackURL: process.env['GOOGLE_CALLBACK_URL'] || 'http://localhost:3001/auth/google/callback',
             scope: ['email', 'profile'],
             state: true, // Enable state parameter for CSRF protection
