@@ -35,8 +35,16 @@ export class IsStrongPasswordConstraint implements ValidatorConstraintInterface 
         // At least one special character
         if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) return false;
 
-        // Reject common weak passwords (1000 most common)
-        if (COMMON_PASSWORDS.includes(password.toLowerCase())) return false;
+        // Reject common weak passwords (1000 most common), including trivial
+        // derivatives obtained by appending digits/symbols to a common word
+        // (e.g. 'Password1!' derives from 'password'). Checking the raw
+        // lowercased password alone is not enough: none of the 1000 most
+        // common passwords contain a special character, so a password that
+        // satisfies the complexity rules above could never match on its own -
+        // the letters-only check is what makes this rule actually reachable.
+        const lowerPassword = password.toLowerCase();
+        const lettersOnly = lowerPassword.replace(/[^a-z]/g, '');
+        if (COMMON_PASSWORDS.includes(lowerPassword) || COMMON_PASSWORDS.includes(lettersOnly)) return false;
 
         return true;
     }

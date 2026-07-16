@@ -652,12 +652,16 @@ export class AuthService {
         this.authCodes.set(code, { tokens: loginResponse, expiresAt });
 
         // Auto-cleanup expired codes after 15 minutes
-        setTimeout(
+        // unref() so this cleanup timer never keeps the process (or a test
+        // runner) alive on its own - it's a best-effort cleanup, not
+        // something the process should wait for at shutdown.
+        const cleanupTimer = setTimeout(
             () => {
                 this.authCodes.delete(code);
             },
             15 * 60 * 1000,
         );
+        cleanupTimer.unref?.();
     }
 
     /**

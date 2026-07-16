@@ -95,10 +95,8 @@ jobs:
       - name: Generate Prisma client
         run: pnpm --filter @playertracker/api prisma:generate
 
-      # TODO(tests unitaires) : retirer --passWithNoTests une fois que de vrais
-      # tests unitaires (*.spec.ts) auront été ajoutés dans apps/api/src.
       - name: Run unit tests
-        run: pnpm --filter @playertracker/api exec jest --ci --passWithNoTests
+        run: pnpm --filter @playertracker/api exec jest --ci --forceExit
 
   # ---------------------------------------------------------------------------
   # 3. Tests end-to-end (API + vraie base PostgreSQL éphémère)
