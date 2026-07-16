@@ -59,6 +59,7 @@ describe('Auth Platform Restrictions (e2e)', () => {
                     lastName: 'Staff',
                     role: 'STAFF',
                     platform: 'web',
+                    clubName: 'Platform Test Club',
                     consentGiven: true,
                 })
                 .expect(201);
@@ -165,6 +166,7 @@ describe('Auth Platform Restrictions (e2e)', () => {
                 lastName: 'Staff',
                 role: 'STAFF',
                 platform: 'web',
+                clubName: 'Login Platform Test Club',
                 consentGiven: true,
             });
 

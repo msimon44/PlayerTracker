@@ -1,4 +1,16 @@
-import { Body, Controller, Get, Post, Req, Request, Res, UnauthorizedException, UseGuards } from '@nestjs/common';
+import {
+    Body,
+    Controller,
+    Get,
+    HttpCode,
+    HttpStatus,
+    Post,
+    Req,
+    Request,
+    Res,
+    UnauthorizedException,
+    UseGuards,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { SkipThrottle, Throttle } from '@nestjs/throttler';
@@ -53,6 +65,7 @@ export class AuthController {
     @Public()
     @Throttle({ medium: { limit: 3, ttl: 60000 } }) // 3 login attempts per minute
     @Post('login')
+    @HttpCode(HttpStatus.OK)
     @ApiOperation({ summary: 'Login user' })
     @ApiResponse({ status: 200, description: 'Login successful', type: LoginResponse })
     @ApiResponse({ status: 401, description: 'Invalid credentials' })
@@ -63,6 +76,7 @@ export class AuthController {
     @Public()
     @UseGuards(RefreshTokenGuard)
     @Post('refresh')
+    @HttpCode(HttpStatus.OK)
     @ApiOperation({ summary: 'Refresh access token using refresh token' })
     @ApiResponse({ status: 200, description: 'Tokens refreshed successfully', type: LoginResponse })
     @ApiResponse({ status: 401, description: 'Invalid or expired refresh token' })
@@ -73,6 +87,7 @@ export class AuthController {
     @Public()
     @Throttle({ default: { limit: 10, ttl: 60000 } }) // 10 per minute
     @Post('exchange-code')
+    @HttpCode(HttpStatus.OK)
     @ApiOperation({ summary: 'Exchange authorization code for tokens (OAuth security flow)' })
     @ApiResponse({ status: 200, description: 'Tokens retrieved successfully', type: LoginResponse })
     @ApiResponse({ status: 401, description: 'Invalid or expired authorization code' })
@@ -83,6 +98,7 @@ export class AuthController {
     @Public()
     @Throttle({ medium: { limit: 10, ttl: 60000 } }) // 10 attempts per minute
     @Post('verify-email')
+    @HttpCode(HttpStatus.OK)
     @ApiOperation({ summary: 'Verify email with token' })
     @ApiResponse({ status: 200, description: 'Email verified successfully' })
     @ApiResponse({ status: 400, description: 'Invalid or expired token' })
@@ -94,6 +110,7 @@ export class AuthController {
     @Public()
     @Throttle({ medium: { limit: 3, ttl: 60000 } }) // 3 resend per minute
     @Post('resend-verification')
+    @HttpCode(HttpStatus.OK)
     @ApiOperation({ summary: 'Resend email verification' })
     @ApiResponse({ status: 200, description: 'Verification email sent' })
     @ApiResponse({ status: 400, description: 'Email already verified' })
@@ -105,6 +122,7 @@ export class AuthController {
     @Public()
     @Throttle({ medium: { limit: 3, ttl: 60000 } }) // 3 requests per minute
     @Post('forgot-password')
+    @HttpCode(HttpStatus.OK)
     @ApiOperation({ summary: 'Request password reset' })
     @ApiResponse({ status: 200, description: 'Password reset email sent if account exists' })
     async forgotPassword(@Body() forgotPasswordDto: ForgotPasswordDto) {
@@ -115,6 +133,7 @@ export class AuthController {
     @Public()
     @Throttle({ medium: { limit: 5, ttl: 60000 } }) // 5 reset attempts per minute
     @Post('reset-password')
+    @HttpCode(HttpStatus.OK)
     @ApiOperation({ summary: 'Reset password with token' })
     @ApiResponse({ status: 200, description: 'Password reset successfully' })
     @ApiResponse({ status: 400, description: 'Invalid or expired token' })
@@ -126,6 +145,7 @@ export class AuthController {
     @Throttle({ medium: { limit: 5, ttl: 60000 } }) // 5 change attempts per minute
     @UseGuards(JwtAuthGuard)
     @Post('change-password')
+    @HttpCode(HttpStatus.OK)
     @ApiOperation({ summary: 'Change password (authenticated)' })
     @ApiResponse({ status: 200, description: 'Password changed successfully' })
     @ApiResponse({ status: 401, description: 'Current password is incorrect' })
@@ -141,6 +161,7 @@ export class AuthController {
     @Public()
     @Throttle({ medium: { limit: 10, ttl: 60000 } }) // 10 confirmation attempts per minute
     @Post('confirm-oauth-linking')
+    @HttpCode(HttpStatus.OK)
     @ApiOperation({ summary: 'Confirm OAuth account linking with token' })
     @ApiResponse({ status: 200, description: 'OAuth account linked successfully' })
     @ApiResponse({ status: 400, description: 'Invalid or expired token' })
@@ -152,6 +173,7 @@ export class AuthController {
     @Throttle({ medium: { limit: 10, ttl: 60000 } }) // 10 logout attempts per minute
     @UseGuards(JwtAuthGuard)
     @Post('logout')
+    @HttpCode(HttpStatus.OK)
     @ApiOperation({ summary: 'Logout user and revoke access token' })
     @ApiResponse({ status: 200, description: 'Logged out successfully' })
     @ApiResponse({ status: 401, description: 'Unauthorized' })
