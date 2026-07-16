@@ -27,7 +27,7 @@ describe('MatchPassword', () => {
         const errors = await validate(dto);
 
         expect(errors).toHaveLength(1);
-        expect(errors[0].constraints).toEqual(expect.objectContaining({ matchPassword: "Passwords don't match" }));
+        expect(errors[0]?.constraints).toEqual(expect.objectContaining({ matchPassword: "Passwords don't match" }));
     });
 
     it('fails validation when the confirmation field is empty', async () => {
