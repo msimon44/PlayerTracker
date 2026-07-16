@@ -1,0 +1,93 @@
+{
+    "$schema": "https://turbo.build/schema.json",
+    "globalDependencies": ["**/.env.*local", ".env", "turbo.json"],
+    "globalEnv": ["NODE_ENV", "CI"],
+    "tasks": {
+        "build": {
+            "dependsOn": ["^build"],
+            "inputs": [
+                "src/**",
+                "package.json",
+                "tsconfig.json",
+                "tsconfig.*.json",
+                "next.config.*",
+                "vite.config.*",
+                "tailwind.config.*",
+                "postcss.config.*"
+            ],
+            "outputs": [".next/**", "!.next/cache/**", "dist/**", "!dist/**/*.test.*", "build/**", "coverage/**"],
+            "env": ["NODE_ENV", "NEXT_PUBLIC_*"]
+        },
+        "lint": {
+            "dependsOn": ["^build"],
+            "inputs": ["src/**", "test/**", "package.json", "eslint.config.*", ".eslintrc.*", "tsconfig.json"],
+            "outputs": []
+        },
+        "lint:fix": {
+            "dependsOn": ["^build"],
+            "inputs": ["src/**", "test/**", "package.json", "eslint.config.*", ".eslintrc.*", "tsconfig.json"],
+            "outputs": [],
+            "cache": false
+        },
+        "dev": {
+            "cache": false,
+            "persistent": true,
+            "env": ["NODE_ENV", "NEXT_PUBLIC_*", "DATABASE_URL"]
+        },
+        "test": {
+            "dependsOn": ["^build"],
+            "inputs": ["src/**", "test/**", "package.json", "jest.config.*", "vitest.config.*", "tsconfig.json"],
+            "outputs": ["coverage/**", "test-results/**"],
+            "env": ["NODE_ENV", "CI"]
+        },
+        "test:watch": {
+            "cache": false,
+            "persistent": true
+        },
+        "test:e2e": {
+            "dependsOn": ["^build", "build"],
+            "inputs": ["src/**", "test/**", "e2e/**", "package.json", "playwright.config.*", "cypress.config.*"],
+            "outputs": ["test-results/**", "playwright-report/**"],
+            "env": ["NODE_ENV", "CI", "BASE_URL"]
+        },
+        "type-check": {
+            "dependsOn": ["^build"],
+            "inputs": ["src/**", "test/**", "package.json", "tsconfig.json", "tsconfig.*.json"],
+            "outputs": []
+        },
+        "format": {
+            "inputs": ["src/**", "test/**", "package.json", ".prettierrc*", "prettier.config.*"],
+            "outputs": [],
+            "cache": false
+        },
+        "format:check": {
+            "inputs": ["src/**", "test/**", "package.json", ".prettierrc*", "prettier.config.*"],
+            "outputs": []
+        },
+        "clean": {
+            "cache": false
+        },
+        "prisma:generate": {
+            "cache": false,
+            "inputs": ["prisma/schema.prisma"],
+            "outputs": ["node_modules/.prisma/**"]
+        },
+        "prisma:push": {
+            "cache": false,
+            "env": ["DATABASE_URL"]
+        },
+        "prisma:migrate": {
+            "cache": false,
+            "env": ["DATABASE_URL"]
+        },
+        "prisma:reset": {
+            "cache": false,
+            "env": ["DATABASE_URL"]
+        },
+        "prisma:studio": {
+            "cache": false,
+            "persistent": true,
+            "env": ["DATABASE_URL"]
+        }
+    }
+}

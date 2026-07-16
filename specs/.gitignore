@@ -1,0 +1,4 @@
+# Le contrat OpenAPI est généré automatiquement
+# On le commit pour tracer l'historique des changements d'API
+# Mais on peut le régénérer à tout moment
+!openapi.json

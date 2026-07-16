@@ -1,0 +1,385 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Sport {
+  id        Int                     @id @default(autoincrement())
+  name      String                  @unique
+  createdAt DateTime                @default(now())
+  teams     Team[]
+  positions Position[]
+  templates QuestionnaireTemplate[]
+}
+
+model Position {
+  id      Int      @id @default(autoincrement())
+  name    String
+  sportId Int
+  players Player[]
+  sport   Sport    @relation(fields: [sportId], references: [id])
+}
+
+model SensitivePlayerData {
+  id           Int       @id @default(autoincrement())
+  playerId     Int       @unique
+  weight       Float?
+  height       Float?
+  birthDate    DateTime?
+  medicalNotes String?
+  nationality  String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  gender       Gender
+  player       Player    @relation(fields: [playerId], references: [id], onDelete: Cascade)
+}
+
+model AuditLog {
+  id         Int      @id @default(autoincrement())
+  userId     Int?
+  action     String
+  targetType String
+  targetId   Int?
+  createdAt  DateTime @default(now())
+  user       User?    @relation(fields: [userId], references: [id])
+}
+
+model User {
+  id                      Int                      @id @default(autoincrement())
+  email                   String                   @unique
+  password                String?
+  avatarUrl               String?
+  isEmailVerified         Boolean                  @default(false)
+  lastLoginAt             DateTime?
+  createdAt               DateTime                 @default(now())
+  updatedAt               DateTime                 @updatedAt
+  consentGiven            Boolean                  @default(false)
+  consentGivenAt          DateTime?
+  deletedAt               DateTime?
+  isDeleted               Boolean                  @default(false)
+  role                    Role
+  auditLogs               AuditLog[]
+  oauthAccounts           OAuthAccount[]
+  player                  Player?
+  staff                   Staff?
+  twoFactorMethods        TwoFactorMethod[]
+  emailVerificationTokens EmailVerificationToken[]
+  passwordResetTokens     PasswordResetToken[]
+  oauthLinkingTokens      OAuthLinkingToken[]
+}
+
+model OAuthAccount {
+  id           Int       @id @default(autoincrement())
+  userId       Int
+  provider     String
+  providerId   String
+  accessToken  String?
+  refreshToken String?
+  expiresAt    DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerId])
+}
+
+model TwoFactorMethod {
+  id          Int           @id @default(autoincrement())
+  userId      Int
+  type        TwoFactorType
+  secret      String
+  phoneNumber String?
+  isPrimary   Boolean       @default(false)
+  isVerified  Boolean       @default(false)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, type])
+}
+
+model EmailVerificationToken {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([token])
+  @@index([userId])
+}
+
+model PasswordResetToken {
+  id        Int       @id @default(autoincrement())
+  userId    Int
+  token     String    @unique
+  expiresAt DateTime
+  createdAt DateTime  @default(now())
+  usedAt    DateTime?
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([token])
+  @@index([userId])
+}
+
+model OAuthLinkingToken {
+  id           Int      @id @default(autoincrement())
+  userId       Int
+  provider     String
+  providerId   String
+  email        String
+  accessToken  String?
+  refreshToken String?
+  token        String   @unique
+  expiresAt    DateTime
+  createdAt    DateTime @default(now())
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([token])
+  @@index([userId])
+}
+
+model RevokedToken {
+  id        Int      @id @default(autoincrement())
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([token])
+  @@index([expiresAt])
+}
+
+model Club {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  logoUrl     String?
+  website     String?
+  address     String?
+  phone       String?
+  email       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  players     Player[]
+  staffs      Staff[]
+  teams       Team[]
+}
+
+model Team {
+  id             Int             @id @default(autoincrement())
+  name           String
+  description    String?
+  logoUrl        String?
+  clubId         Int
+  sportId        Int
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  players        Player[]
+  calendarEvents CalendarEvent[]
+  questionnaires Questionnaire[]
+  club           Club            @relation(fields: [clubId], references: [id])
+  sport          Sport           @relation(fields: [sportId], references: [id])
+}
+
+model Player {
+  id            Int                  @id @default(autoincrement())
+  userId        Int?                 @unique
+  firstName     String
+  lastName      String
+  nickName      String?
+  photoUrl      String?
+  clubId        Int
+  teamId        Int?
+  positionId    Int?
+  isActive      Boolean              @default(true)
+  createdAt     DateTime             @default(now())
+  updatedAt     DateTime             @updatedAt
+  deletedAt     DateTime?
+  isDeleted     Boolean              @default(false)
+  answers       Answer[]
+  matchNotes    MatchPlayerNote[]
+  metrics       Metric[]
+  club          Club                 @relation(fields: [clubId], references: [id])
+  position      Position?            @relation(fields: [positionId], references: [id])
+  team          Team?                @relation(fields: [teamId], references: [id])
+  user          User?                @relation(fields: [userId], references: [id])
+  sensitiveData SensitivePlayerData?
+}
+
+model Staff {
+  id                    Int               @id @default(autoincrement())
+  userId                Int               @unique
+  clubId                Int
+  firstName             String?
+  lastName              String?
+  specialty             String?
+  phone                 String?
+  certifications        String?
+  createdAt             DateTime          @default(now())
+  updatedAt             DateTime          @updatedAt
+  createdQuestionnaires Questionnaire[]   @relation("Questionnaire_creator")
+  matchNotes            MatchPlayerNote[]
+  club                  Club              @relation(fields: [clubId], references: [id])
+  user                  User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model QuestionnaireTemplate {
+  id        Int                @id @default(autoincrement())
+  sportId   Int
+  title     String
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
+  questions QuestionTemplate[]
+  sport     Sport              @relation(fields: [sportId], references: [id])
+}
+
+model QuestionTemplate {
+  id         Int                   @id @default(autoincrement())
+  templateId Int
+  title      String
+  options    String[]
+  order      Int                   @default(0)
+  createdAt  DateTime              @default(now())
+  updatedAt  DateTime              @updatedAt
+  type       QuestionType
+  template   QuestionnaireTemplate @relation(fields: [templateId], references: [id])
+}
+
+model Questionnaire {
+  id          Int                 @id @default(autoincrement())
+  title       String
+  description String?
+  teamId      Int
+  staffId     Int
+  createdBy   Int
+  scheduledAt DateTime?
+  closesAt    DateTime?
+  eventId     Int?
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+  status      QuestionnaireStatus @default(DRAFT)
+  metrics     Metric[]
+  questions   Question[]
+  creator     Staff               @relation("Questionnaire_creator", fields: [staffId], references: [id])
+  event       CalendarEvent?      @relation(fields: [eventId], references: [id])
+  team        Team                @relation(fields: [teamId], references: [id])
+}
+
+model CalendarEvent {
+  id             Int               @id @default(autoincrement())
+  teamId         Int
+  title          String
+  description    String?
+  type           CalendarEventType
+  startsAt       DateTime
+  endsAt         DateTime
+  opponent       String?
+  location       String?
+  isOfficial     Boolean           @default(true)
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+  questionnaires Questionnaire[]
+  matchNotes     MatchPlayerNote[]
+  team           Team              @relation(fields: [teamId], references: [id])
+}
+
+model MatchPlayerNote {
+  id        Int           @id @default(autoincrement())
+  eventId   Int
+  playerId  Int
+  staffId   Int
+  rating    Float
+  comment   String?
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  event     CalendarEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  player    Player        @relation(fields: [playerId], references: [id], onDelete: Cascade)
+  staff     Staff         @relation(fields: [staffId], references: [id])
+
+  @@unique([eventId, playerId])
+}
+
+model Question {
+  id              Int           @id @default(autoincrement())
+  questionnaireId Int
+  title           String
+  options         String[]
+  isRequired      Boolean       @default(true)
+  order           Int           @default(0)
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  type            QuestionType
+  answers         Answer[]
+  questionnaire   Questionnaire @relation(fields: [questionnaireId], references: [id])
+}
+
+model Answer {
+  id          Int      @id @default(autoincrement())
+  playerId    Int
+  questionId  Int
+  value       String
+  submittedAt DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  player      Player   @relation(fields: [playerId], references: [id])
+  question    Question @relation(fields: [questionId], references: [id])
+}
+
+model Metric {
+  id              Int            @id @default(autoincrement())
+  playerId        Int
+  questionnaireId Int?
+  type            String
+  value           Float
+  unit            String?
+  capturedAt      DateTime
+  createdAt       DateTime       @default(now())
+  player          Player         @relation(fields: [playerId], references: [id])
+  questionnaire   Questionnaire? @relation(fields: [questionnaireId], references: [id], onDelete: SetNull)
+}
+
+enum Role {
+  PLAYER
+  STAFF
+  ADMIN
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+enum QuestionnaireStatus {
+  DRAFT
+  ACTIVE
+  COMPLETED
+  ARCHIVED
+}
+
+enum CalendarEventType {
+  MATCH
+  TRAINING
+  REVIEW
+  OTHER
+}
+
+enum QuestionType {
+  TEXT
+  NUMBER
+  BOOLEAN
+  SINGLE_CHOICE
+  MULTIPLE_CHOICE
+  SCALE
+}
+
+enum TwoFactorType {
+  TOTP
+  SMS
+  PASSKEY
+}

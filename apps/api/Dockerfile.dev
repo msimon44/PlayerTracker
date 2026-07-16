@@ -1,0 +1,43 @@
+# Development Dockerfile for API with hot reload
+FROM node:20-alpine
+
+# Install dependencies for building native modules
+RUN apk add --no-cache \
+    python3 \
+    make \
+    g++ \
+    libc6-compat \
+    openssl
+
+# Install pnpm globally
+RUN corepack enable && corepack prepare pnpm@10.12.2 --activate
+
+# Set working directory
+WORKDIR /app
+
+# Copy package files
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+
+# Copy all workspace package.json files
+COPY apps/api/package.json ./apps/api/
+COPY packages ./packages
+
+# Install all dependencies (including dev dependencies for hot reload)
+RUN pnpm install --frozen-lockfile --filter @playertracker/api...
+
+# Copy source code (this will be overridden by volume mount in development)
+COPY . .
+
+# Generate Prisma Client
+WORKDIR /app/apps/api
+RUN npx prisma generate || true
+
+# Expose port
+EXPOSE 3001
+
+# Set environment to development
+ENV NODE_ENV=development
+ENV PORT=3001
+
+# Start in watch mode for hot reload
+CMD ["pnpm", "start:dev"]

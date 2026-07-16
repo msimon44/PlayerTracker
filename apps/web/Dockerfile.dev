@@ -1,0 +1,37 @@
+# Development Dockerfile for Web with hot reload
+FROM node:20-alpine
+
+# Install dependencies for building native modules
+RUN apk add --no-cache \
+    libc6-compat
+
+# Install pnpm globally
+RUN corepack enable && corepack prepare pnpm@10.12.2 --activate
+
+# Set working directory
+WORKDIR /app
+
+# Copy package files
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+
+# Copy all workspace package.json files
+COPY apps/web/package.json ./apps/web/
+COPY packages ./packages
+
+# Install all dependencies (including dev dependencies for hot reload)
+RUN pnpm install --frozen-lockfile --filter @playertracker/web...
+
+# Copy source code (this will be overridden by volume mount in development)
+COPY . .
+
+# Expose port
+EXPOSE 3000
+
+# Set environment to development
+ENV NODE_ENV=development
+ENV PORT=3000
+ENV HOSTNAME=0.0.0.0
+
+# Start Next.js in development mode with hot reload
+WORKDIR /app/apps/web
+CMD ["pnpm", "dev"]

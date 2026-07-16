@@ -1,0 +1,20 @@
+# Ignore build outputs
+dist/
+build/
+.next/
+out/
+coverage/
+.expo/
+
+# Ignore dependencies
+node_modules/
+
+# Ignore generated files
+*.d.ts
+.turbo/
+
+# Ignore specific files
+pnpm-lock.yaml
+yarn.lock
+package-lock.json
+.env*

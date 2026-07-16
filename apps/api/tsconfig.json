@@ -1,0 +1,16 @@
+{
+    "extends": "../../packages/config/typescript/nestjs.json",
+    "compilerOptions": {
+        "baseUrl": "./src",
+        "rootDir": ".",
+        "outDir": "./dist",
+        "exactOptionalPropertyTypes": false,
+        "resolveJsonModule": true,
+        "typeRoots": ["./node_modules/@types", "./src/types"],
+        "paths": {
+            "@playertracker/utils": ["../../packages/utils/dist"]
+        }
+    },
+    "include": ["src/**/*", "test/**/*", "prisma/**/*"],
+    "exclude": ["node_modules"]
+}

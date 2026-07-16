@@ -1,0 +1,42 @@
+{
+    "recommendations": [
+        // Formatters & Linters
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint",
+
+        // TypeScript
+        "ms-vscode.vscode-typescript-next",
+
+        // Frameworks
+        "bradlc.vscode-tailwindcss",
+        "prisma.prisma",
+        "expo.vscode-expo-tools",
+
+        // Docker & DevOps
+        "ms-vscode.vscode-docker",
+        "ms-vscode-remote.remote-containers",
+
+        // Git
+        "donjayamanne.githistory",
+        "eamodio.gitlens",
+
+        // Productivity
+        "wayou.vscode-todo-highlight",
+        "gruntfuggly.todo-tree",
+        "usernamehw.errorlens",
+        "christian-kohler.path-intellisense",
+
+        // Monorepo & Build Tools
+        "ms-vscode.makefile-tools",
+
+        // Database
+        "alexcvzz.vscode-sqlite",
+
+        // API Development
+        "42crunch.vscode-openapi",
+        "humao.rest-client",
+
+        // Markdown & Documentation
+        "bierner.markdown-mermaid"
+    ]
+}

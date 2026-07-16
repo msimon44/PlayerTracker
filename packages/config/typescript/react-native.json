@@ -1,0 +1,12 @@
+{
+    "extends": "./react.json",
+    "compilerOptions": {
+        "target": "ES2022",
+        "jsx": "react-native",
+        "allowSyntheticDefaultImports": true,
+        "skipLibCheck": true,
+        "moduleResolution": "node"
+    },
+    "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
+    "exclude": ["node_modules", "web-build", ".expo"]
+}

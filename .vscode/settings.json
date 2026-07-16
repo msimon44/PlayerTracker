@@ -1,0 +1,143 @@
+{
+    // ===================================
+    // Makefile Configuration
+    // ===================================
+    "makefile.configureOnOpen": true,
+
+    // ===================================
+    // Prettier Configuration
+    // ===================================
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "prettier.configPath": ".prettierrc.js",
+    "prettier.ignorePath": ".prettierignore",
+    "prettier.requireConfig": true,
+
+    // ===================================
+    // Editor Configuration
+    // ===================================
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit",
+        "source.organizeImports": "explicit",
+        "source.removeUnusedImports": "explicit"
+    },
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": false,
+    "editor.bracketPairColorization.enabled": true,
+    "editor.guides.bracketPairs": true,
+
+    // ===================================
+    // Files Configuration
+    // ===================================
+    "files.eol": "\n",
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
+    "files.exclude": {
+        "**/.git": true,
+        "**/.DS_Store": true,
+        "**/node_modules": true,
+        "**/.turbo": true,
+        "**/.next": true,
+        "**/dist": true,
+        "**/build": true,
+        "**/*.tsbuildinfo": true
+    },
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/.turbo": true,
+        "**/.next": true,
+        "**/dist": true,
+        "**/build": true,
+        "**/pnpm-lock.yaml": true,
+        "**/*.tsbuildinfo": true,
+        "**/apps/web/src/lib/generated": true,
+        "**/apps/mobile/src/lib/generated": true
+    },
+
+    // ===================================
+    // ESLint Configuration
+    // ===================================
+    "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+    "eslint.workingDirectories": [{ "mode": "auto" }],
+
+    // ===================================
+    // TypeScript Configuration
+    // ===================================
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "typescript.enablePromptUseWorkspaceTsdk": true,
+    "typescript.preferences.importModuleSpecifier": "relative",
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "typescript.suggest.autoImports": true,
+    "typescript.preferences.includePackageJsonAutoImports": "on",
+
+    // ===================================
+    // Language Specific Formatting
+    // ===================================
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[jsonc]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[css]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[scss]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[markdown]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[yaml]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[prisma]": {
+        "editor.defaultFormatter": "Prisma.prisma"
+    },
+
+    // ===================================
+    // Terminal Configuration
+    // ===================================
+    "terminal.integrated.defaultProfile.osx": "zsh",
+    "terminal.integrated.env.osx": {
+        "NODE_ENV": "development"
+    },
+
+    // ===================================
+    // Git Configuration
+    // ===================================
+    "git.enableSmartCommit": true,
+    "git.confirmSync": false,
+    "git.autofetch": true,
+
+    // ===================================
+    // Monorepo Configuration
+    // ===================================
+    "npm.packageManager": "pnpm",
+    "npm.exclude": "**/node_modules/**",
+
+    // ===================================
+    // Path Intellisense
+    // ===================================
+    "path-intellisense.mappings": {
+        "@": "${workspaceRoot}/apps",
+        "@playertracker": "${workspaceRoot}/packages"
+    }
+}

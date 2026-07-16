@@ -1,0 +1,6751 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/health": {
+      "get": {
+        "operationId": "AppController_healthCheck",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "App"
+        ]
+      }
+    },
+    "/answers": {
+      "get": {
+        "operationId": "AnswersController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Answers"
+        ]
+      },
+      "post": {
+        "operationId": "AnswersController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAnswerDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Answers"
+        ]
+      }
+    },
+    "/answers/{id}": {
+      "get": {
+        "operationId": "AnswersController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Answers"
+        ]
+      },
+      "patch": {
+        "operationId": "AnswersController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAnswerDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Answers"
+        ]
+      },
+      "delete": {
+        "operationId": "AnswersController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Answers"
+        ]
+      }
+    },
+    "/audit-logs": {
+      "get": {
+        "operationId": "AuditLogsController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "AuditLogs"
+        ]
+      },
+      "post": {
+        "operationId": "AuditLogsController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAuditLogDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "AuditLogs"
+        ]
+      }
+    },
+    "/audit-logs/{id}": {
+      "get": {
+        "operationId": "AuditLogsController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "AuditLogs"
+        ]
+      },
+      "patch": {
+        "operationId": "AuditLogsController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAuditLogDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "AuditLogs"
+        ]
+      },
+      "delete": {
+        "operationId": "AuditLogsController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "AuditLogs"
+        ]
+      }
+    },
+    "/auth/register": {
+      "post": {
+        "operationId": "AuthController_register",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User registered successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input or email already exists"
+          }
+        },
+        "summary": "Register a new user",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "operationId": "AuthController_login",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid credentials"
+          }
+        },
+        "summary": "Login user",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/auth/refresh": {
+      "post": {
+        "operationId": "AuthController_refreshTokens",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Tokens refreshed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid or expired refresh token"
+          }
+        },
+        "summary": "Refresh access token using refresh token",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/auth/exchange-code": {
+      "post": {
+        "operationId": "AuthController_exchangeAuthorizationCode",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExchangeCodeDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Tokens retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid or expired authorization code"
+          }
+        },
+        "summary": "Exchange authorization code for tokens (OAuth security flow)",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/auth/verify-email": {
+      "post": {
+        "operationId": "AuthController_verifyEmail",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VerifyEmailDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Email verified successfully"
+          },
+          "400": {
+            "description": "Invalid or expired token"
+          }
+        },
+        "summary": "Verify email with token",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/auth/resend-verification": {
+      "post": {
+        "operationId": "AuthController_resendVerification",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResendVerificationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Verification email sent"
+          },
+          "400": {
+            "description": "Email already verified"
+          }
+        },
+        "summary": "Resend email verification",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/auth/forgot-password": {
+      "post": {
+        "operationId": "AuthController_forgotPassword",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ForgotPasswordDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Password reset email sent if account exists"
+          }
+        },
+        "summary": "Request password reset",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/auth/reset-password": {
+      "post": {
+        "operationId": "AuthController_resetPassword",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetPasswordDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Password reset successfully"
+          },
+          "400": {
+            "description": "Invalid or expired token"
+          }
+        },
+        "summary": "Reset password with token",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/auth/change-password": {
+      "post": {
+        "operationId": "AuthController_changePassword",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangePasswordDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Password changed successfully"
+          },
+          "401": {
+            "description": "Current password is incorrect"
+          }
+        },
+        "summary": "Change password (authenticated)",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/auth/confirm-oauth-linking": {
+      "post": {
+        "operationId": "AuthController_confirmOAuthLinking",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConfirmOAuthLinkingDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OAuth account linked successfully"
+          },
+          "400": {
+            "description": "Invalid or expired token"
+          }
+        },
+        "summary": "Confirm OAuth account linking with token",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "operationId": "AuthController_logout",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Logged out successfully"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "summary": "Logout user and revoke access token",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/auth/me": {
+      "get": {
+        "operationId": "AuthController_getProfile",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "User profile retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserAuthDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "summary": "Get current user profile",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/auth/oauth-status": {
+      "get": {
+        "operationId": "AuthController_getOAuthStatus",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/auth/google": {
+      "get": {
+        "operationId": "AuthController_googleAuth",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/auth/google/mobile": {
+      "get": {
+        "operationId": "AuthController_googleAuthMobile",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/auth/google/callback": {
+      "get": {
+        "operationId": "AuthController_googleAuthRedirect",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/auth/apple": {
+      "get": {
+        "operationId": "AuthController_appleAuth",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/auth/apple/mobile": {
+      "get": {
+        "operationId": "AuthController_appleAuthMobile",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/auth/apple/callback": {
+      "get": {
+        "operationId": "AuthController_appleAuthRedirect",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/users": {
+      "get": {
+        "operationId": "UsersController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "List of users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UserListItemDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get all users",
+        "tags": [
+          "users"
+        ]
+      },
+      "post": {
+        "operationId": "UsersController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDetailDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Create a new user",
+        "tags": [
+          "users"
+        ]
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "operationId": "UsersController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserWithRelationsDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get a user by ID",
+        "tags": [
+          "users"
+        ]
+      },
+      "patch": {
+        "operationId": "UsersController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDetailDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Update a user",
+        "tags": [
+          "users"
+        ]
+      },
+      "delete": {
+        "operationId": "UsersController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDetailDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Delete a user",
+        "tags": [
+          "users"
+        ]
+      }
+    },
+    "/users/email/{email}": {
+      "get": {
+        "operationId": "UsersController_findByEmail",
+        "parameters": [
+          {
+            "name": "email",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserWithRelationsDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found"
+          }
+        },
+        "summary": "Get a user by email",
+        "tags": [
+          "users"
+        ]
+      }
+    },
+    "/calendar-events": {
+      "get": {
+        "operationId": "CalendarEventsController_findAll",
+        "parameters": [
+          {
+            "name": "clubId",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "teamId",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of calendar events",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CalendarEventResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get calendar events",
+        "tags": [
+          "calendar-events"
+        ]
+      }
+    },
+    "/clubs": {
+      "get": {
+        "operationId": "ClubsController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Clubs"
+        ]
+      },
+      "post": {
+        "operationId": "ClubsController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateClubDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Clubs"
+        ]
+      }
+    },
+    "/clubs/{id}": {
+      "get": {
+        "operationId": "ClubsController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Clubs"
+        ]
+      },
+      "patch": {
+        "operationId": "ClubsController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateClubDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Clubs"
+        ]
+      },
+      "delete": {
+        "operationId": "ClubsController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Clubs"
+        ]
+      }
+    },
+    "/images": {
+      "get": {
+        "operationId": "ImagesController_listImages",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "List of image filenames"
+          }
+        },
+        "summary": "List all available images",
+        "tags": [
+          "images"
+        ]
+      }
+    },
+    "/images/{filename}": {
+      "get": {
+        "operationId": "ImagesController_getImage",
+        "parameters": [
+          {
+            "name": "filename",
+            "required": true,
+            "in": "path",
+            "description": "Name of the image file",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Image file"
+          },
+          "404": {
+            "description": "Image not found"
+          }
+        },
+        "summary": "Get an image by filename",
+        "tags": [
+          "images"
+        ]
+      }
+    },
+    "/match-player-notes": {
+      "get": {
+        "operationId": "MatchPlayerNotesController_findAll",
+        "parameters": [
+          {
+            "name": "eventId",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "playerId",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of notes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MatchPlayerNoteResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get match player notes",
+        "tags": [
+          "match-player-notes"
+        ]
+      },
+      "post": {
+        "operationId": "MatchPlayerNotesController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateMatchPlayerNoteDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Note saved",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MatchPlayerNoteResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Create or update a staff note for a player match",
+        "tags": [
+          "match-player-notes"
+        ]
+      }
+    },
+    "/match-player-notes/{id}": {
+      "patch": {
+        "operationId": "MatchPlayerNotesController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateMatchPlayerNoteDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Note updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MatchPlayerNoteResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Update a staff note",
+        "tags": [
+          "match-player-notes"
+        ]
+      }
+    },
+    "/metrics": {
+      "get": {
+        "operationId": "MetricsController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "List of metrics",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MetricListItemDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get all metrics",
+        "tags": [
+          "metrics"
+        ]
+      },
+      "post": {
+        "operationId": "MetricsController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateMetricDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Metric created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MetricResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Create a metric",
+        "tags": [
+          "metrics"
+        ]
+      }
+    },
+    "/metrics/{id}": {
+      "get": {
+        "operationId": "MetricsController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Metric details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MetricResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get a metric by ID",
+        "tags": [
+          "metrics"
+        ]
+      },
+      "patch": {
+        "operationId": "MetricsController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateMetricDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Metric updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MetricResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Update a metric",
+        "tags": [
+          "metrics"
+        ]
+      },
+      "delete": {
+        "operationId": "MetricsController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Metric deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MetricResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Delete a metric",
+        "tags": [
+          "metrics"
+        ]
+      }
+    },
+    "/players": {
+      "get": {
+        "operationId": "PlayersController_findAll",
+        "parameters": [
+          {
+            "name": "clubId",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of players",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PlayerListItemDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get all players",
+        "tags": [
+          "players"
+        ]
+      },
+      "post": {
+        "operationId": "PlayersController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePlayerDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Player created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlayerResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Create a new player",
+        "tags": [
+          "players"
+        ]
+      }
+    },
+    "/players/{id}": {
+      "get": {
+        "operationId": "PlayersController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Player details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlayerResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get a player by ID",
+        "tags": [
+          "players"
+        ]
+      },
+      "patch": {
+        "operationId": "PlayersController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePlayerDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Player updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlayerResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Update a player",
+        "tags": [
+          "players"
+        ]
+      },
+      "delete": {
+        "operationId": "PlayersController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Player deleted"
+          }
+        },
+        "summary": "Delete a player",
+        "tags": [
+          "players"
+        ]
+      }
+    },
+    "/positions": {
+      "get": {
+        "operationId": "PositionsController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "List of positions",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PositionListItemDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get all positions",
+        "tags": [
+          "positions"
+        ]
+      },
+      "post": {
+        "operationId": "PositionsController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePositionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Position created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Create a new position",
+        "tags": [
+          "positions"
+        ]
+      }
+    },
+    "/positions/{id}": {
+      "get": {
+        "operationId": "PositionsController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Position details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get a position by ID",
+        "tags": [
+          "positions"
+        ]
+      },
+      "patch": {
+        "operationId": "PositionsController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePositionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Position updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Update a position",
+        "tags": [
+          "positions"
+        ]
+      },
+      "delete": {
+        "operationId": "PositionsController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Position deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Delete a position",
+        "tags": [
+          "positions"
+        ]
+      }
+    },
+    "/questionnaire-templates": {
+      "get": {
+        "operationId": "QuestionnaireTemplatesController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "QuestionnaireTemplates"
+        ]
+      },
+      "post": {
+        "operationId": "QuestionnaireTemplatesController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateQuestionnaireTemplateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "QuestionnaireTemplates"
+        ]
+      }
+    },
+    "/questionnaire-templates/{id}": {
+      "get": {
+        "operationId": "QuestionnaireTemplatesController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "QuestionnaireTemplates"
+        ]
+      },
+      "patch": {
+        "operationId": "QuestionnaireTemplatesController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateQuestionnaireTemplateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "QuestionnaireTemplates"
+        ]
+      },
+      "delete": {
+        "operationId": "QuestionnaireTemplatesController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "QuestionnaireTemplates"
+        ]
+      }
+    },
+    "/question-templates": {
+      "get": {
+        "operationId": "QuestionTemplatesController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "QuestionTemplates"
+        ]
+      },
+      "post": {
+        "operationId": "QuestionTemplatesController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateQuestionTemplateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "QuestionTemplates"
+        ]
+      }
+    },
+    "/question-templates/{id}": {
+      "get": {
+        "operationId": "QuestionTemplatesController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "QuestionTemplates"
+        ]
+      },
+      "patch": {
+        "operationId": "QuestionTemplatesController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateQuestionTemplateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "QuestionTemplates"
+        ]
+      },
+      "delete": {
+        "operationId": "QuestionTemplatesController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "QuestionTemplates"
+        ]
+      }
+    },
+    "/questionnaires": {
+      "get": {
+        "operationId": "QuestionnairesController_findAll",
+        "parameters": [
+          {
+            "name": "clubId",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of questionnaires",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/QuestionnaireListItemDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get all questionnaires",
+        "tags": [
+          "questionnaires"
+        ]
+      },
+      "post": {
+        "operationId": "QuestionnairesController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateQuestionnaireDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Questionnaire created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionnaireResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Create a new questionnaire",
+        "tags": [
+          "questionnaires"
+        ]
+      }
+    },
+    "/questionnaires/{id}/results": {
+      "get": {
+        "operationId": "QuestionnairesController_findResults",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Questionnaire results"
+          }
+        },
+        "summary": "Get closed questionnaire results",
+        "tags": [
+          "questionnaires"
+        ]
+      }
+    },
+    "/questionnaires/{id}/respondents": {
+      "get": {
+        "operationId": "QuestionnairesController_findRespondents",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Questionnaire respondents"
+          }
+        },
+        "summary": "Get questionnaire respondents",
+        "tags": [
+          "questionnaires"
+        ]
+      }
+    },
+    "/questionnaires/{id}": {
+      "get": {
+        "operationId": "QuestionnairesController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Questionnaire details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionnaireResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get a questionnaire by ID",
+        "tags": [
+          "questionnaires"
+        ]
+      },
+      "patch": {
+        "operationId": "QuestionnairesController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateQuestionnaireDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Questionnaire updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionnaireResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Update a questionnaire",
+        "tags": [
+          "questionnaires"
+        ]
+      },
+      "delete": {
+        "operationId": "QuestionnairesController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Questionnaire deleted"
+          }
+        },
+        "summary": "Delete a questionnaire",
+        "tags": [
+          "questionnaires"
+        ]
+      }
+    },
+    "/questions": {
+      "get": {
+        "operationId": "QuestionsController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Questions"
+        ]
+      },
+      "post": {
+        "operationId": "QuestionsController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateQuestionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Questions"
+        ]
+      }
+    },
+    "/questions/{id}": {
+      "get": {
+        "operationId": "QuestionsController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Questions"
+        ]
+      },
+      "patch": {
+        "operationId": "QuestionsController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateQuestionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Questions"
+        ]
+      },
+      "delete": {
+        "operationId": "QuestionsController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Questions"
+        ]
+      }
+    },
+    "/sensitive-player-data": {
+      "get": {
+        "operationId": "SensitivePlayerDataController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "List of sensitive player data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SensitivePlayerDataListItemDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get all sensitive player data",
+        "tags": [
+          "sensitive-player-data"
+        ]
+      },
+      "post": {
+        "operationId": "SensitivePlayerDataController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSensitivePlayerDataDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Sensitive player data created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SensitivePlayerDataResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Create new sensitive player data",
+        "tags": [
+          "sensitive-player-data"
+        ]
+      }
+    },
+    "/sensitive-player-data/{id}": {
+      "get": {
+        "operationId": "SensitivePlayerDataController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sensitive player data details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SensitivePlayerDataResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get sensitive player data by ID",
+        "tags": [
+          "sensitive-player-data"
+        ]
+      },
+      "patch": {
+        "operationId": "SensitivePlayerDataController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateSensitivePlayerDataDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sensitive player data updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SensitivePlayerDataResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Update sensitive player data",
+        "tags": [
+          "sensitive-player-data"
+        ]
+      },
+      "delete": {
+        "operationId": "SensitivePlayerDataController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sensitive player data deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SensitivePlayerDataResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Delete sensitive player data",
+        "tags": [
+          "sensitive-player-data"
+        ]
+      }
+    },
+    "/sports": {
+      "get": {
+        "operationId": "SportsController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "List of sports",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SportListItemDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get all sports",
+        "tags": [
+          "sports"
+        ]
+      },
+      "post": {
+        "operationId": "SportsController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSportDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Sport created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SportResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Create a new sport",
+        "tags": [
+          "sports"
+        ]
+      }
+    },
+    "/sports/{id}": {
+      "get": {
+        "operationId": "SportsController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sport details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SportResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get a sport by ID",
+        "tags": [
+          "sports"
+        ]
+      },
+      "patch": {
+        "operationId": "SportsController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateSportDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sport updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SportResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Update a sport",
+        "tags": [
+          "sports"
+        ]
+      },
+      "delete": {
+        "operationId": "SportsController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sport deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SportResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Delete a sport",
+        "tags": [
+          "sports"
+        ]
+      }
+    },
+    "/staff/me": {
+      "get": {
+        "operationId": "StaffController_findCurrentStaff",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Staff"
+        ]
+      }
+    },
+    "/staff": {
+      "get": {
+        "operationId": "StaffController_findAll",
+        "parameters": [
+          {
+            "name": "clubId",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Staff"
+        ]
+      },
+      "post": {
+        "operationId": "StaffController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateStaffDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Staff"
+        ]
+      }
+    },
+    "/staff/{id}": {
+      "get": {
+        "operationId": "StaffController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Staff"
+        ]
+      },
+      "patch": {
+        "operationId": "StaffController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateStaffDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Staff"
+        ]
+      },
+      "delete": {
+        "operationId": "StaffController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Staff"
+        ]
+      }
+    },
+    "/teams": {
+      "get": {
+        "operationId": "TeamsController_findAll",
+        "parameters": [
+          {
+            "name": "clubId",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of teams",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TeamListItemDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get all teams",
+        "tags": [
+          "teams"
+        ]
+      },
+      "post": {
+        "operationId": "TeamsController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTeamDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Team created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TeamResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Create a new team",
+        "tags": [
+          "teams"
+        ]
+      }
+    },
+    "/teams/{id}": {
+      "get": {
+        "operationId": "TeamsController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Team details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TeamResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get a team by ID",
+        "tags": [
+          "teams"
+        ]
+      },
+      "patch": {
+        "operationId": "TeamsController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTeamDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Team updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TeamResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Update a team",
+        "tags": [
+          "teams"
+        ]
+      },
+      "delete": {
+        "operationId": "TeamsController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Team deleted"
+          }
+        },
+        "summary": "Delete a team",
+        "tags": [
+          "teams"
+        ]
+      }
+    },
+    "/teams/club/{clubId}": {
+      "get": {
+        "operationId": "TeamsController_findTeamsByClubId",
+        "parameters": [
+          {
+            "name": "clubId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of teams for the club",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TeamListItemDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get teams by club ID",
+        "tags": [
+          "teams"
+        ]
+      }
+    },
+    "/teams/{teamId}/assign-player/{playerId}": {
+      "post": {
+        "operationId": "TeamsController_assignPlayerToTeam",
+        "parameters": [
+          {
+            "name": "teamId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "playerId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Player assigned to team",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TeamResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Assign a player to a team",
+        "tags": [
+          "teams"
+        ]
+      }
+    },
+    "/teams/{teamId}/remove-player/{playerId}": {
+      "delete": {
+        "operationId": "TeamsController_removePlayerFromTeam",
+        "parameters": [
+          {
+            "name": "teamId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "playerId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Player removed from team",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TeamResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Remove a player from a team",
+        "tags": [
+          "teams"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "PlayerTracker API",
+    "description": "API pour la plateforme de suivi physique et mental des athlètes",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "auth",
+      "description": "Authentification et autorisation"
+    },
+    {
+      "name": "users",
+      "description": "Gestion des utilisateurs"
+    },
+    {
+      "name": "players",
+      "description": "Gestion des joueurs"
+    },
+    {
+      "name": "clubs",
+      "description": "Gestion des clubs"
+    },
+    {
+      "name": "teams",
+      "description": "Gestion des équipes"
+    },
+    {
+      "name": "questionnaires",
+      "description": "Gestion des questionnaires"
+    },
+    {
+      "name": "images",
+      "description": "Gestion des images"
+    },
+    {
+      "name": "metrics",
+      "description": "Métriques et statistiques"
+    }
+  ],
+  "servers": [],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "CreateAnswerDto": {
+        "type": "object",
+        "properties": {
+          "playerId": {
+            "type": "number",
+            "description": "ID du joueur",
+            "example": 1
+          },
+          "questionId": {
+            "type": "number",
+            "description": "ID de la question",
+            "example": 1
+          },
+          "value": {
+            "type": "string",
+            "description": "Valeur de la réponse",
+            "example": "Très bien"
+          }
+        },
+        "required": [
+          "playerId",
+          "questionId",
+          "value"
+        ]
+      },
+      "UpdateAnswerDto": {
+        "type": "object",
+        "properties": {
+          "playerId": {
+            "type": "number",
+            "description": "ID du joueur",
+            "example": 1
+          },
+          "questionId": {
+            "type": "number",
+            "description": "ID de la question",
+            "example": 1
+          },
+          "value": {
+            "type": "string",
+            "description": "Valeur de la réponse",
+            "example": "Très bien"
+          }
+        }
+      },
+      "CreateAuditLogDto": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "number",
+            "description": "ID de l'utilisateur",
+            "example": 1
+          },
+          "action": {
+            "type": "string",
+            "description": "Action effectuée",
+            "example": "CREATE_PLAYER",
+            "maxLength": 255
+          },
+          "targetType": {
+            "type": "string",
+            "description": "Type de la cible",
+            "example": "Player",
+            "maxLength": 100
+          },
+          "targetId": {
+            "type": "number",
+            "description": "ID de la cible",
+            "example": 1
+          }
+        },
+        "required": [
+          "action",
+          "targetType"
+        ]
+      },
+      "UpdateAuditLogDto": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "number",
+            "description": "ID de l'utilisateur",
+            "example": 1
+          },
+          "action": {
+            "type": "string",
+            "description": "Action effectuée",
+            "example": "CREATE_PLAYER",
+            "maxLength": 255
+          },
+          "targetType": {
+            "type": "string",
+            "description": "Type de la cible",
+            "example": "Player",
+            "maxLength": 100
+          },
+          "targetId": {
+            "type": "number",
+            "description": "ID de la cible",
+            "example": 1
+          }
+        }
+      },
+      "RegisterUserDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "Email de l'utilisateur",
+            "example": "john.doe@example.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "Mot de passe (min 8 caractères, majuscule, minuscule, chiffre, caractère spécial)",
+            "example": "Password123!",
+            "minLength": 8
+          },
+          "role": {
+            "type": "string",
+            "description": "Rôle de l'utilisateur",
+            "enum": [
+              "PLAYER",
+              "STAFF",
+              "ADMIN"
+            ],
+            "default": "PLAYER",
+            "example": "PLAYER"
+          },
+          "consentGiven": {
+            "type": "boolean",
+            "description": "Consentement donné pour le traitement des données",
+            "example": true
+          },
+          "platform": {
+            "type": "string",
+            "description": "Plateforme d'inscription (web = STAFF uniquement, mobile = PLAYER uniquement)",
+            "enum": [
+              "web",
+              "mobile"
+            ],
+            "example": "web"
+          },
+          "firstName": {
+            "type": "string",
+            "description": "Prénom (requis pour STAFF sur web)",
+            "example": "John"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Nom de famille (requis pour STAFF sur web)",
+            "example": "Doe"
+          },
+          "clubId": {
+            "type": "number",
+            "description": "ID du club (pour rejoindre un club existant)",
+            "example": 1
+          },
+          "clubName": {
+            "type": "string",
+            "description": "Nom du club à créer (si création d'un nouveau club)",
+            "example": "FC Paris"
+          }
+        },
+        "required": [
+          "email",
+          "password",
+          "role",
+          "consentGiven",
+          "platform"
+        ]
+      },
+      "PlayerAuthDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "Player ID",
+            "example": 1
+          },
+          "firstName": {
+            "type": "string",
+            "description": "First name",
+            "example": "John"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Last name",
+            "example": "Doe"
+          },
+          "clubId": {
+            "type": "number",
+            "description": "Club ID",
+            "example": 1
+          },
+          "teamId": {
+            "type": "object",
+            "description": "Team ID",
+            "example": 1,
+            "nullable": true
+          },
+          "positionId": {
+            "type": "object",
+            "description": "Position ID",
+            "example": 1,
+            "nullable": true
+          },
+          "isActive": {
+            "type": "boolean",
+            "description": "Is active",
+            "example": true
+          }
+        },
+        "required": [
+          "id",
+          "firstName",
+          "lastName",
+          "clubId",
+          "teamId",
+          "positionId",
+          "isActive"
+        ]
+      },
+      "StaffAuthDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "Staff ID",
+            "example": 1
+          },
+          "firstName": {
+            "type": "object",
+            "description": "First name",
+            "example": "John",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "object",
+            "description": "Last name",
+            "example": "Doe",
+            "nullable": true
+          },
+          "specialty": {
+            "type": "object",
+            "description": "Specialty",
+            "example": "Physiotherapist",
+            "nullable": true
+          },
+          "clubId": {
+            "type": "number",
+            "description": "Club ID",
+            "example": 1
+          }
+        },
+        "required": [
+          "id",
+          "firstName",
+          "lastName",
+          "specialty",
+          "clubId"
+        ]
+      },
+      "UserAuthDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "User ID",
+            "example": 1
+          },
+          "email": {
+            "type": "string",
+            "description": "Email",
+            "example": "john@example.com"
+          },
+          "avatarUrl": {
+            "type": "object",
+            "description": "Avatar URL",
+            "example": "https://example.com/avatar.jpg",
+            "nullable": true
+          },
+          "isEmailVerified": {
+            "type": "boolean",
+            "description": "Is email verified",
+            "example": true
+          },
+          "lastLoginAt": {
+            "type": "object",
+            "description": "Last login timestamp",
+            "nullable": true
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Creation timestamp"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Last update timestamp"
+          },
+          "consentGiven": {
+            "type": "boolean",
+            "description": "Consent given",
+            "example": true
+          },
+          "consentGivenAt": {
+            "type": "object",
+            "description": "Consent given timestamp",
+            "nullable": true
+          },
+          "deletedAt": {
+            "type": "object",
+            "description": "Deletion timestamp",
+            "nullable": true
+          },
+          "isDeleted": {
+            "type": "boolean",
+            "description": "Is deleted",
+            "example": false
+          },
+          "role": {
+            "type": "string",
+            "description": "User role",
+            "example": "PLAYER"
+          },
+          "player": {
+            "description": "Player profile",
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PlayerAuthDto"
+              }
+            ]
+          },
+          "staff": {
+            "description": "Staff profile",
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/StaffAuthDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "email",
+          "avatarUrl",
+          "isEmailVerified",
+          "lastLoginAt",
+          "createdAt",
+          "updatedAt",
+          "consentGiven",
+          "consentGivenAt",
+          "deletedAt",
+          "isDeleted",
+          "role",
+          "player",
+          "staff"
+        ]
+      },
+      "TokensDto": {
+        "type": "object",
+        "properties": {
+          "accessToken": {
+            "type": "string",
+            "description": "Access token",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+          },
+          "refreshToken": {
+            "type": "string",
+            "description": "Refresh token",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+          },
+          "expiresIn": {
+            "type": "number",
+            "description": "Token expiration time in seconds",
+            "example": 900
+          },
+          "tokenType": {
+            "type": "string",
+            "description": "Token type",
+            "example": "Bearer"
+          }
+        },
+        "required": [
+          "accessToken",
+          "refreshToken",
+          "expiresIn",
+          "tokenType"
+        ]
+      },
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "description": "User details",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UserAuthDto"
+              }
+            ]
+          },
+          "tokens": {
+            "description": "Authentication tokens",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TokensDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "user",
+          "tokens"
+        ]
+      },
+      "LoginUserDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "Email de l'utilisateur",
+            "example": "john.doe@example.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "Mot de passe",
+            "example": "Password123!",
+            "minLength": 1
+          },
+          "rememberMe": {
+            "type": "boolean",
+            "description": "Se souvenir de moi",
+            "example": false
+          },
+          "platform": {
+            "type": "string",
+            "description": "Plateforme de connexion (web = STAFF uniquement, mobile = PLAYER uniquement)",
+            "enum": [
+              "web",
+              "mobile"
+            ],
+            "example": "web"
+          }
+        },
+        "required": [
+          "email",
+          "password",
+          "platform"
+        ]
+      },
+      "ExchangeCodeDto": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Temporary authorization code from OAuth callback",
+            "example": "a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2",
+            "minLength": 64,
+            "maxLength": 64
+          }
+        },
+        "required": [
+          "code"
+        ]
+      },
+      "VerifyEmailDto": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "Token de vérification email",
+            "example": "abc123xyz"
+          }
+        },
+        "required": [
+          "token"
+        ]
+      },
+      "ResendVerificationDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "Email de l'utilisateur",
+            "example": "john.doe@example.com"
+          }
+        },
+        "required": [
+          "email"
+        ]
+      },
+      "ForgotPasswordDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "Email de l'utilisateur",
+            "example": "john.doe@example.com"
+          }
+        },
+        "required": [
+          "email"
+        ]
+      },
+      "ResetPasswordDto": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "Token de réinitialisation",
+            "example": "abc123xyz"
+          },
+          "password": {
+            "type": "string",
+            "description": "Nouveau mot de passe (min 8 caractères, majuscule, minuscule, chiffre, caractère spécial)",
+            "example": "NewPassword123!",
+            "minLength": 8
+          },
+          "confirmPassword": {
+            "type": "string",
+            "description": "Confirmation du mot de passe",
+            "example": "NewPassword123!",
+            "minLength": 8
+          }
+        },
+        "required": [
+          "token",
+          "password",
+          "confirmPassword"
+        ]
+      },
+      "ChangePasswordDto": {
+        "type": "object",
+        "properties": {
+          "currentPassword": {
+            "type": "string",
+            "description": "Mot de passe actuel",
+            "example": "OldPassword123!"
+          },
+          "newPassword": {
+            "type": "string",
+            "description": "Nouveau mot de passe (min 8 caractères, majuscule, minuscule, chiffre, caractère spécial)",
+            "example": "NewPassword123!",
+            "minLength": 8
+          },
+          "confirmPassword": {
+            "type": "string",
+            "description": "Confirmation du nouveau mot de passe",
+            "example": "NewPassword123!",
+            "minLength": 8
+          }
+        },
+        "required": [
+          "currentPassword",
+          "newPassword",
+          "confirmPassword"
+        ]
+      },
+      "ConfirmOAuthLinkingDto": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "Token de confirmation de liaison OAuth",
+            "example": "abc123xyz"
+          }
+        },
+        "required": [
+          "token"
+        ]
+      },
+      "UserListItemDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "User ID",
+            "example": 1
+          },
+          "email": {
+            "type": "string",
+            "description": "Email address",
+            "example": "john@example.com"
+          },
+          "avatarUrl": {
+            "type": "object",
+            "description": "Avatar URL",
+            "example": "https://example.com/avatar.jpg"
+          },
+          "isEmailVerified": {
+            "type": "boolean",
+            "description": "Is email verified",
+            "example": true
+          },
+          "lastLoginAt": {
+            "type": "object",
+            "description": "Last login date",
+            "example": "2024-01-01T00:00:00.000Z"
+          },
+          "role": {
+            "type": "string",
+            "description": "User role",
+            "enum": [
+              "PLAYER",
+              "STAFF",
+              "ADMIN"
+            ],
+            "example": "PLAYER"
+          },
+          "isDeleted": {
+            "type": "boolean",
+            "description": "Is deleted",
+            "example": false
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Creation date",
+            "example": "2024-01-01T00:00:00.000Z"
+          }
+        },
+        "required": [
+          "id",
+          "email",
+          "isEmailVerified",
+          "role",
+          "isDeleted",
+          "createdAt"
+        ]
+      },
+      "PlayerBasicDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "Player ID",
+            "example": 1
+          },
+          "firstName": {
+            "type": "string",
+            "description": "First name",
+            "example": "John"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Last name",
+            "example": "Doe"
+          },
+          "clubId": {
+            "type": "number",
+            "description": "Club ID",
+            "example": 1
+          },
+          "teamId": {
+            "type": "object",
+            "description": "Team ID",
+            "example": 1
+          },
+          "positionId": {
+            "type": "object",
+            "description": "Position ID",
+            "example": 1
+          },
+          "isActive": {
+            "type": "boolean",
+            "description": "Is active",
+            "example": true
+          }
+        },
+        "required": [
+          "id",
+          "firstName",
+          "lastName",
+          "clubId",
+          "isActive"
+        ]
+      },
+      "StaffBasicDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "Staff ID",
+            "example": 1
+          },
+          "firstName": {
+            "type": "object",
+            "description": "First name",
+            "example": "Jane"
+          },
+          "lastName": {
+            "type": "object",
+            "description": "Last name",
+            "example": "Smith"
+          },
+          "clubId": {
+            "type": "number",
+            "description": "Club ID",
+            "example": 1
+          },
+          "specialty": {
+            "type": "object",
+            "description": "Specialty",
+            "example": "Physical trainer"
+          }
+        },
+        "required": [
+          "id",
+          "clubId"
+        ]
+      },
+      "OAuthAccountBasicDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "OAuth account ID",
+            "example": 1
+          },
+          "provider": {
+            "type": "string",
+            "description": "OAuth provider",
+            "example": "google"
+          },
+          "providerId": {
+            "type": "string",
+            "description": "Provider user ID",
+            "example": "1234567890"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Creation date",
+            "example": "2024-01-01T00:00:00.000Z"
+          }
+        },
+        "required": [
+          "id",
+          "provider",
+          "providerId",
+          "createdAt"
+        ]
+      },
+      "UserWithRelationsDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "User ID",
+            "example": 1
+          },
+          "email": {
+            "type": "string",
+            "description": "Email address",
+            "example": "john@example.com"
+          },
+          "avatarUrl": {
+            "type": "object",
+            "description": "Avatar URL",
+            "example": "https://example.com/avatar.jpg"
+          },
+          "isEmailVerified": {
+            "type": "boolean",
+            "description": "Is email verified",
+            "example": true
+          },
+          "lastLoginAt": {
+            "type": "object",
+            "description": "Last login date",
+            "example": "2024-01-01T00:00:00.000Z"
+          },
+          "role": {
+            "type": "string",
+            "description": "User role",
+            "enum": [
+              "PLAYER",
+              "STAFF",
+              "ADMIN"
+            ],
+            "example": "PLAYER"
+          },
+          "consentGiven": {
+            "type": "boolean",
+            "description": "Consent given",
+            "example": true
+          },
+          "consentGivenAt": {
+            "type": "object",
+            "description": "Consent given date",
+            "example": "2024-01-01T00:00:00.000Z"
+          },
+          "isDeleted": {
+            "type": "boolean",
+            "description": "Is deleted",
+            "example": false
+          },
+          "deletedAt": {
+            "type": "object",
+            "description": "Deletion date",
+            "example": "2024-01-01T00:00:00.000Z"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Creation date",
+            "example": "2024-01-01T00:00:00.000Z"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Last update date",
+            "example": "2024-01-01T00:00:00.000Z"
+          },
+          "player": {
+            "description": "Player profile",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PlayerBasicDto"
+              }
+            ]
+          },
+          "staff": {
+            "description": "Staff profile",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/StaffBasicDto"
+              }
+            ]
+          },
+          "oauthAccounts": {
+            "description": "OAuth accounts",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OAuthAccountBasicDto"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "email",
+          "isEmailVerified",
+          "role",
+          "consentGiven",
+          "isDeleted",
+          "createdAt",
+          "updatedAt",
+          "oauthAccounts"
+        ]
+      },
+      "CreateUserDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "Email de l'utilisateur",
+            "example": "john.doe@example.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "Mot de passe",
+            "example": "Password123!",
+            "minLength": 8
+          },
+          "avatarUrl": {
+            "type": "string",
+            "description": "URL de l'avatar",
+            "example": "https://example.com/avatar.jpg"
+          },
+          "isEmailVerified": {
+            "type": "boolean",
+            "description": "Email vérifié",
+            "example": false
+          },
+          "consentGiven": {
+            "type": "boolean",
+            "description": "Consentement donné",
+            "example": true
+          },
+          "consentGivenAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Date du consentement",
+            "example": "2024-01-01T00:00:00.000Z"
+          },
+          "role": {
+            "type": "string",
+            "description": "Rôle de l'utilisateur",
+            "enum": [
+              "PLAYER",
+              "STAFF",
+              "ADMIN"
+            ],
+            "example": "PLAYER"
+          }
+        },
+        "required": [
+          "email",
+          "role"
+        ]
+      },
+      "UserDetailDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "User ID",
+            "example": 1
+          },
+          "email": {
+            "type": "string",
+            "description": "Email address",
+            "example": "john@example.com"
+          },
+          "avatarUrl": {
+            "type": "object",
+            "description": "Avatar URL",
+            "example": "https://example.com/avatar.jpg"
+          },
+          "isEmailVerified": {
+            "type": "boolean",
+            "description": "Is email verified",
+            "example": true
+          },
+          "lastLoginAt": {
+            "type": "object",
+            "description": "Last login date",
+            "example": "2024-01-01T00:00:00.000Z"
+          },
+          "role": {
+            "type": "string",
+            "description": "User role",
+            "enum": [
+              "PLAYER",
+              "STAFF",
+              "ADMIN"
+            ],
+            "example": "PLAYER"
+          },
+          "consentGiven": {
+            "type": "boolean",
+            "description": "Consent given",
+            "example": true
+          },
+          "consentGivenAt": {
+            "type": "object",
+            "description": "Consent given date",
+            "example": "2024-01-01T00:00:00.000Z"
+          },
+          "isDeleted": {
+            "type": "boolean",
+            "description": "Is deleted",
+            "example": false
+          },
+          "deletedAt": {
+            "type": "object",
+            "description": "Deletion date",
+            "example": "2024-01-01T00:00:00.000Z"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Creation date",
+            "example": "2024-01-01T00:00:00.000Z"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Last update date",
+            "example": "2024-01-01T00:00:00.000Z"
+          }
+        },
+        "required": [
+          "id",
+          "email",
+          "isEmailVerified",
+          "role",
+          "consentGiven",
+          "isDeleted",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "UpdateUserDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "Email de l'utilisateur",
+            "example": "john.doe@example.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "Mot de passe",
+            "example": "Password123!",
+            "minLength": 8
+          },
+          "avatarUrl": {
+            "type": "string",
+            "description": "URL de l'avatar",
+            "example": "https://example.com/avatar.jpg"
+          },
+          "isEmailVerified": {
+            "type": "boolean",
+            "description": "Email vérifié",
+            "example": false
+          },
+          "consentGiven": {
+            "type": "boolean",
+            "description": "Consentement donné",
+            "example": true
+          },
+          "consentGivenAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Date du consentement",
+            "example": "2024-01-01T00:00:00.000Z"
+          },
+          "role": {
+            "type": "string",
+            "description": "Rôle de l'utilisateur",
+            "enum": [
+              "PLAYER",
+              "STAFF",
+              "ADMIN"
+            ],
+            "example": "PLAYER"
+          },
+          "lastLoginAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Date de dernière connexion",
+            "example": "2024-01-01T00:00:00.000Z"
+          }
+        }
+      },
+      "CalendarEventTeamDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "Karmine Corp LEC"
+          },
+          "clubId": {
+            "type": "number",
+            "example": 1
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "clubId"
+        ]
+      },
+      "CalendarEventQuestionnaireDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 1
+          },
+          "title": {
+            "type": "string",
+            "example": "Daily wellness check"
+          },
+          "status": {
+            "type": "string",
+            "example": "ACTIVE"
+          },
+          "scheduledAt": {
+            "type": "object",
+            "example": "2026-04-29T08:00:00.000Z",
+            "nullable": true
+          },
+          "closesAt": {
+            "type": "object",
+            "example": "2026-04-29T12:00:00.000Z",
+            "nullable": true
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "status",
+          "scheduledAt",
+          "closesAt"
+        ]
+      },
+      "CalendarEventResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 1
+          },
+          "teamId": {
+            "type": "number",
+            "example": 1
+          },
+          "title": {
+            "type": "string",
+            "example": "LEC match day vs Team Vitality"
+          },
+          "description": {
+            "type": "object",
+            "example": "Match officiel LEC",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "example": "MATCH",
+            "enum": [
+              "MATCH",
+              "TRAINING",
+              "REVIEW",
+              "OTHER"
+            ]
+          },
+          "startsAt": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2026-04-29T18:00:00.000Z"
+          },
+          "endsAt": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2026-04-29T21:00:00.000Z"
+          },
+          "opponent": {
+            "type": "object",
+            "example": "Team Vitality",
+            "nullable": true
+          },
+          "location": {
+            "type": "object",
+            "example": "Riot Games Arena Berlin",
+            "nullable": true
+          },
+          "isOfficial": {
+            "type": "boolean",
+            "example": true
+          },
+          "team": {
+            "$ref": "#/components/schemas/CalendarEventTeamDto"
+          },
+          "questionnaires": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CalendarEventQuestionnaireDto"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "teamId",
+          "title",
+          "description",
+          "type",
+          "startsAt",
+          "endsAt",
+          "opponent",
+          "location",
+          "isOfficial",
+          "team",
+          "questionnaires"
+        ]
+      },
+      "CreateClubDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Nom du club",
+            "example": "FC Barcelona",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "description": {
+            "type": "string",
+            "description": "Description du club",
+            "example": "Club de football professionnel",
+            "maxLength": 1000
+          },
+          "logoUrl": {
+            "type": "string",
+            "description": "URL du logo",
+            "example": "https://example.com/logo.png"
+          },
+          "website": {
+            "type": "string",
+            "description": "Site web",
+            "example": "https://fcbarcelona.com"
+          },
+          "address": {
+            "type": "string",
+            "description": "Adresse",
+            "example": "123 Rue du Stade",
+            "maxLength": 500
+          },
+          "phone": {
+            "type": "string",
+            "description": "Téléphone",
+            "example": "+33 1 23 45 67 89",
+            "maxLength": 50
+          },
+          "email": {
+            "type": "string",
+            "description": "Email",
+            "example": "contact@club.com"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "UpdateClubDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Nom du club",
+            "example": "FC Barcelona",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "description": {
+            "type": "string",
+            "description": "Description du club",
+            "example": "Club de football professionnel",
+            "maxLength": 1000
+          },
+          "logoUrl": {
+            "type": "string",
+            "description": "URL du logo",
+            "example": "https://example.com/logo.png"
+          },
+          "website": {
+            "type": "string",
+            "description": "Site web",
+            "example": "https://fcbarcelona.com"
+          },
+          "address": {
+            "type": "string",
+            "description": "Adresse",
+            "example": "123 Rue du Stade",
+            "maxLength": 500
+          },
+          "phone": {
+            "type": "string",
+            "description": "Téléphone",
+            "example": "+33 1 23 45 67 89",
+            "maxLength": 50
+          },
+          "email": {
+            "type": "string",
+            "description": "Email",
+            "example": "contact@club.com"
+          }
+        }
+      },
+      "MatchPlayerNotePlayerDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 1
+          },
+          "firstName": {
+            "type": "string",
+            "example": "Caliste"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "Henry-Hennebert"
+          },
+          "nickName": {
+            "type": "object",
+            "example": "Caliste",
+            "nullable": true
+          }
+        },
+        "required": [
+          "id",
+          "firstName",
+          "lastName",
+          "nickName"
+        ]
+      },
+      "MatchPlayerNoteEventDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 1
+          },
+          "title": {
+            "type": "string",
+            "example": "LEC match day vs Team Vitality"
+          },
+          "type": {
+            "type": "string",
+            "example": "MATCH"
+          },
+          "startsAt": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2026-04-29T18:00:00.000Z"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "type",
+          "startsAt"
+        ]
+      },
+      "MatchPlayerNoteResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 1
+          },
+          "eventId": {
+            "type": "number",
+            "example": 1
+          },
+          "playerId": {
+            "type": "number",
+            "example": 1
+          },
+          "staffId": {
+            "type": "number",
+            "example": 1
+          },
+          "rating": {
+            "type": "number",
+            "example": 8.4
+          },
+          "comment": {
+            "type": "object",
+            "example": "Très bon impact en teamfight.",
+            "nullable": true
+          },
+          "player": {
+            "$ref": "#/components/schemas/MatchPlayerNotePlayerDto"
+          },
+          "event": {
+            "$ref": "#/components/schemas/MatchPlayerNoteEventDto"
+          }
+        },
+        "required": [
+          "id",
+          "eventId",
+          "playerId",
+          "staffId",
+          "rating",
+          "comment",
+          "player",
+          "event"
+        ]
+      },
+      "CreateMatchPlayerNoteDto": {
+        "type": "object",
+        "properties": {
+          "eventId": {
+            "type": "number",
+            "example": 1
+          },
+          "playerId": {
+            "type": "number",
+            "example": 1
+          },
+          "staffId": {
+            "type": "number",
+            "example": 1
+          },
+          "rating": {
+            "type": "number",
+            "example": 8.4,
+            "minimum": 0,
+            "maximum": 10
+          },
+          "comment": {
+            "type": "string",
+            "example": "Très bon impact en teamfight.",
+            "nullable": true
+          }
+        },
+        "required": [
+          "eventId",
+          "playerId",
+          "staffId",
+          "rating"
+        ]
+      },
+      "UpdateMatchPlayerNoteDto": {
+        "type": "object",
+        "properties": {
+          "eventId": {
+            "type": "number",
+            "example": 1
+          },
+          "playerId": {
+            "type": "number",
+            "example": 1
+          },
+          "staffId": {
+            "type": "number",
+            "example": 1
+          },
+          "rating": {
+            "type": "number",
+            "example": 8.4,
+            "minimum": 0,
+            "maximum": 10
+          },
+          "comment": {
+            "type": "string",
+            "example": "Très bon impact en teamfight.",
+            "nullable": true
+          }
+        }
+      },
+      "MetricPlayerDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 1
+          },
+          "firstName": {
+            "type": "string",
+            "example": "John"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "Doe"
+          },
+          "clubId": {
+            "type": "number",
+            "example": 1
+          }
+        },
+        "required": [
+          "id",
+          "firstName",
+          "lastName",
+          "clubId"
+        ]
+      },
+      "MetricListItemDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 1
+          },
+          "playerId": {
+            "type": "number",
+            "example": 1
+          },
+          "questionnaireId": {
+            "type": "object",
+            "example": 1,
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "example": "WEIGHT"
+          },
+          "value": {
+            "type": "number",
+            "example": 75.5
+          },
+          "unit": {
+            "type": "object",
+            "example": "kg",
+            "nullable": true
+          },
+          "recordedAt": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2024-01-15T12:00:00Z"
+          },
+          "player": {
+            "$ref": "#/components/schemas/MetricPlayerDto"
+          }
+        },
+        "required": [
+          "id",
+          "playerId",
+          "questionnaireId",
+          "type",
+          "value",
+          "unit",
+          "recordedAt",
+          "player"
+        ]
+      },
+      "MetricResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 1
+          },
+          "playerId": {
+            "type": "number",
+            "example": 1
+          },
+          "questionnaireId": {
+            "type": "object",
+            "example": 1,
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "example": "WEIGHT"
+          },
+          "value": {
+            "type": "number",
+            "example": 75.5
+          },
+          "unit": {
+            "type": "object",
+            "example": "kg",
+            "nullable": true
+          },
+          "recordedAt": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2024-01-15T12:00:00Z"
+          },
+          "player": {
+            "$ref": "#/components/schemas/MetricPlayerDto"
+          }
+        },
+        "required": [
+          "id",
+          "playerId",
+          "questionnaireId",
+          "type",
+          "value",
+          "unit",
+          "recordedAt",
+          "player"
+        ]
+      },
+      "CreateMetricDto": {
+        "type": "object",
+        "properties": {
+          "playerId": {
+            "type": "number",
+            "description": "ID du joueur",
+            "example": 1
+          },
+          "questionnaireId": {
+            "type": "number",
+            "description": "ID du questionnaire source si la métrique vient d'une réponse",
+            "example": 1
+          },
+          "type": {
+            "type": "string",
+            "description": "Type de métrique",
+            "example": "speed",
+            "maxLength": 100
+          },
+          "value": {
+            "type": "number",
+            "description": "Valeur de la métrique",
+            "example": 25.5
+          },
+          "unit": {
+            "type": "string",
+            "description": "Unité de mesure",
+            "example": "km/h",
+            "maxLength": 50
+          },
+          "capturedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Date de capture de la métrique",
+            "example": "2024-01-01T10:00:00.000Z"
+          }
+        },
+        "required": [
+          "playerId",
+          "type",
+          "value",
+          "capturedAt"
+        ]
+      },
+      "UpdateMetricDto": {
+        "type": "object",
+        "properties": {
+          "playerId": {
+            "type": "number",
+            "description": "ID du joueur",
+            "example": 1
+          },
+          "questionnaireId": {
+            "type": "number",
+            "description": "ID du questionnaire source si la métrique vient d'une réponse",
+            "example": 1
+          },
+          "type": {
+            "type": "string",
+            "description": "Type de métrique",
+            "example": "speed",
+            "maxLength": 100
+          },
+          "value": {
+            "type": "number",
+            "description": "Valeur de la métrique",
+            "example": 25.5
+          },
+          "unit": {
+            "type": "string",
+            "description": "Unité de mesure",
+            "example": "km/h",
+            "maxLength": 50
+          },
+          "capturedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Date de capture de la métrique",
+            "example": "2024-01-01T10:00:00.000Z"
+          }
+        }
+      },
+      "ClubNestedDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "Club ID",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "description": "Club name",
+            "example": "FC Barcelona"
+          },
+          "address": {
+            "type": "object",
+            "description": "Club address",
+            "example": "123 Main St",
+            "nullable": true
+          },
+          "phone": {
+            "type": "object",
+            "description": "Phone number",
+            "example": "+34 123 456 789",
+            "nullable": true
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Creation timestamp",
+            "example": "2024-01-01T00:00:00Z"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Last update timestamp",
+            "example": "2024-01-15T12:00:00Z"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "address",
+          "phone",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "TeamNestedDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "Team ID",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "description": "Team name",
+            "example": "First Team"
+          },
+          "logoUrl": {
+            "type": "string",
+            "description": "Team logo URL",
+            "example": "https://example.com/logo.png",
+            "nullable": true
+          },
+          "clubId": {
+            "type": "number",
+            "description": "Club ID",
+            "example": 1
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Creation timestamp",
+            "example": "2024-01-01T00:00:00Z"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Last update timestamp",
+            "example": "2024-01-15T12:00:00Z"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "logoUrl",
+          "clubId",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "PositionNestedDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "Position ID",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "description": "Position name",
+            "example": "Forward"
+          },
+          "sportId": {
+            "type": "number",
+            "description": "Sport ID",
+            "example": 1
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "sportId"
+        ]
+      },
+      "PlayerListItemDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "Player ID",
+            "example": 1
+          },
+          "userId": {
+            "type": "number",
+            "description": "User ID",
+            "example": 1,
+            "nullable": true
+          },
+          "firstName": {
+            "type": "string",
+            "description": "First name",
+            "example": "John"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Last name",
+            "example": "Doe"
+          },
+          "nickName": {
+            "type": "string",
+            "description": "Nickname",
+            "example": "Johnny",
+            "nullable": true
+          },
+          "photoUrl": {
+            "type": "string",
+            "description": "Photo URL",
+            "example": "https://example.com/photo.jpg",
+            "nullable": true
+          },
+          "clubId": {
+            "type": "number",
+            "description": "Club ID",
+            "example": 1
+          },
+          "teamId": {
+            "type": "number",
+            "description": "Team ID",
+            "example": 1,
+            "nullable": true
+          },
+          "positionId": {
+            "type": "number",
+            "description": "Position ID",
+            "example": 1,
+            "nullable": true
+          },
+          "isActive": {
+            "type": "boolean",
+            "description": "Is active",
+            "example": true
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Creation timestamp",
+            "example": "2024-01-01T00:00:00Z"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Last update timestamp",
+            "example": "2024-01-15T12:00:00Z"
+          },
+          "club": {
+            "description": "Club details",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ClubNestedDto"
+              }
+            ]
+          },
+          "team": {
+            "description": "Team details",
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TeamNestedDto"
+              }
+            ]
+          },
+          "position": {
+            "description": "Position details",
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PositionNestedDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "userId",
+          "firstName",
+          "lastName",
+          "nickName",
+          "photoUrl",
+          "clubId",
+          "teamId",
+          "positionId",
+          "isActive",
+          "createdAt",
+          "updatedAt",
+          "club",
+          "team",
+          "position"
+        ]
+      },
+      "UserNestedDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "User ID",
+            "example": 1
+          },
+          "email": {
+            "type": "string",
+            "description": "Email address",
+            "example": "john.doe@example.com"
+          },
+          "avatarUrl": {
+            "type": "object",
+            "description": "Avatar URL",
+            "example": "https://example.com/avatar.jpg",
+            "nullable": true
+          },
+          "isEmailVerified": {
+            "type": "boolean",
+            "description": "Is email verified",
+            "example": true
+          },
+          "lastLoginAt": {
+            "type": "object",
+            "description": "Last login timestamp",
+            "example": "2024-01-15T10:30:00Z",
+            "nullable": true
+          },
+          "role": {
+            "type": "string",
+            "description": "User role",
+            "example": "PLAYER",
+            "enum": [
+              "PLAYER",
+              "STAFF",
+              "ADMIN"
+            ]
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Creation timestamp",
+            "example": "2024-01-01T00:00:00Z"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Last update timestamp",
+            "example": "2024-01-15T12:00:00Z"
+          }
+        },
+        "required": [
+          "id",
+          "email",
+          "avatarUrl",
+          "isEmailVerified",
+          "lastLoginAt",
+          "role",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "SensitivePlayerDataNestedDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "Record ID",
+            "example": 1
+          },
+          "playerId": {
+            "type": "number",
+            "description": "Player ID",
+            "example": 10
+          },
+          "weight": {
+            "type": "number",
+            "description": "Weight in kg",
+            "example": 78.5,
+            "nullable": true
+          },
+          "height": {
+            "type": "number",
+            "description": "Height in cm",
+            "example": 182,
+            "nullable": true
+          },
+          "birthDate": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Birthdate",
+            "example": "2000-05-12T00:00:00.000Z",
+            "nullable": true
+          },
+          "nationality": {
+            "type": "string",
+            "description": "Nationality (ISO-2 code)",
+            "example": "FR",
+            "nullable": true
+          },
+          "medicalNotes": {
+            "type": "string",
+            "description": "Medical notes",
+            "example": "Asthma",
+            "nullable": true
+          },
+          "gender": {
+            "type": "string",
+            "description": "Gender",
+            "example": "MALE",
+            "enum": [
+              "MALE",
+              "FEMALE",
+              "OTHER"
+            ]
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Creation timestamp"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Last update timestamp"
+          }
+        },
+        "required": [
+          "id",
+          "playerId",
+          "weight",
+          "height",
+          "birthDate",
+          "nationality",
+          "medicalNotes",
+          "gender",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "PlayerResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "Player ID",
+            "example": 1
+          },
+          "userId": {
+            "type": "number",
+            "description": "User ID",
+            "example": 1,
+            "nullable": true
+          },
+          "firstName": {
+            "type": "string",
+            "description": "First name",
+            "example": "John"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Last name",
+            "example": "Doe"
+          },
+          "nickName": {
+            "type": "string",
+            "description": "Nickname",
+            "example": "Johnny",
+            "nullable": true
+          },
+          "photoUrl": {
+            "type": "string",
+            "description": "Photo URL",
+            "example": "https://example.com/photo.jpg",
+            "nullable": true
+          },
+          "clubId": {
+            "type": "number",
+            "description": "Club ID",
+            "example": 1
+          },
+          "teamId": {
+            "type": "number",
+            "description": "Team ID",
+            "example": 1,
+            "nullable": true
+          },
+          "positionId": {
+            "type": "number",
+            "description": "Position ID",
+            "example": 1,
+            "nullable": true
+          },
+          "isActive": {
+            "type": "boolean",
+            "description": "Is active",
+            "example": true
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Creation timestamp",
+            "example": "2024-01-01T00:00:00Z"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Last update timestamp",
+            "example": "2024-01-15T12:00:00Z"
+          },
+          "user": {
+            "description": "User details",
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UserNestedDto"
+              }
+            ]
+          },
+          "club": {
+            "description": "Club details",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ClubNestedDto"
+              }
+            ]
+          },
+          "team": {
+            "description": "Team details",
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TeamNestedDto"
+              }
+            ]
+          },
+          "position": {
+            "description": "Position details",
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PositionNestedDto"
+              }
+            ]
+          },
+          "sensitiveData": {
+            "description": "Sensitive player data (PII/health)",
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SensitivePlayerDataNestedDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "userId",
+          "firstName",
+          "lastName",
+          "nickName",
+          "photoUrl",
+          "clubId",
+          "teamId",
+          "positionId",
+          "isActive",
+          "createdAt",
+          "updatedAt",
+          "user",
+          "club",
+          "team",
+          "position",
+          "sensitiveData"
+        ]
+      },
+      "CreatePlayerDto": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "number",
+            "description": "ID de l'utilisateur lié",
+            "example": 1
+          },
+          "firstName": {
+            "type": "string",
+            "description": "Prénom du joueur",
+            "example": "John",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Nom du joueur",
+            "example": "Doe",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "nickName": {
+            "type": "string",
+            "description": "Surnom du joueur",
+            "example": "Johnny",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "photoUrl": {
+            "type": "string",
+            "description": "URL de la photo du joueur",
+            "example": "http://example.com/photo.jpg",
+            "maxLength": 255
+          },
+          "clubId": {
+            "type": "number",
+            "description": "ID du club",
+            "example": 1
+          },
+          "teamId": {
+            "type": "number",
+            "description": "ID de l'équipe",
+            "example": 1
+          },
+          "positionId": {
+            "type": "number",
+            "description": "ID de la position",
+            "example": 1
+          },
+          "isActive": {
+            "type": "boolean",
+            "description": "Joueur actif",
+            "example": true
+          }
+        },
+        "required": [
+          "firstName",
+          "lastName",
+          "clubId"
+        ]
+      },
+      "UpdatePlayerDto": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "number",
+            "description": "ID de l'utilisateur lié",
+            "example": 1
+          },
+          "firstName": {
+            "type": "string",
+            "description": "Prénom du joueur",
+            "example": "John",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Nom du joueur",
+            "example": "Doe",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "nickName": {
+            "type": "string",
+            "description": "Surnom du joueur",
+            "example": "Johnny",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "photoUrl": {
+            "type": "string",
+            "description": "URL de la photo du joueur",
+            "example": "http://example.com/photo.jpg",
+            "maxLength": 255
+          },
+          "clubId": {
+            "type": "number",
+            "description": "ID du club",
+            "example": 1
+          },
+          "teamId": {
+            "type": "number",
+            "description": "ID de l'équipe",
+            "example": 1
+          },
+          "positionId": {
+            "type": "number",
+            "description": "ID de la position",
+            "example": 1
+          },
+          "isActive": {
+            "type": "boolean",
+            "description": "Joueur actif",
+            "example": true
+          }
+        }
+      },
+      "SportNestedDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "Sport ID",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "description": "Sport name",
+            "example": "Football"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      },
+      "CountDto": {
+        "type": "object",
+        "properties": {
+          "players": {
+            "type": "number",
+            "description": "Number of players",
+            "example": 15
+          }
+        },
+        "required": [
+          "players"
+        ]
+      },
+      "PositionListItemDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "Position ID",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "description": "Position name",
+            "example": "Forward"
+          },
+          "sportId": {
+            "type": "number",
+            "description": "Sport ID",
+            "example": 1
+          },
+          "sport": {
+            "description": "Sport details",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SportNestedDto"
+              }
+            ]
+          },
+          "_count": {
+            "description": "Counts",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CountDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "sportId",
+          "sport",
+          "_count"
+        ]
+      },
+      "PositionResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "Position ID",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "description": "Position name",
+            "example": "Forward"
+          },
+          "sportId": {
+            "type": "number",
+            "description": "Sport ID",
+            "example": 1
+          },
+          "sport": {
+            "description": "Sport details",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SportNestedDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "sportId",
+          "sport"
+        ]
+      },
+      "CreatePositionDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Nom de la position",
+            "example": "Ailier gauche",
+            "maxLength": 100
+          },
+          "sportId": {
+            "type": "number",
+            "description": "ID du sport",
+            "example": 1
+          }
+        },
+        "required": [
+          "name",
+          "sportId"
+        ]
+      },
+      "UpdatePositionDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Nom de la position",
+            "example": "Ailier gauche",
+            "maxLength": 100
+          },
+          "sportId": {
+            "type": "number",
+            "description": "ID du sport",
+            "example": 1
+          }
+        }
+      },
+      "CreateQuestionnaireTemplateDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Titre du template de questionnaire",
+            "example": "Questionnaire de suivi quotidien",
+            "maxLength": 200
+          },
+          "sportId": {
+            "type": "number",
+            "description": "ID du sport",
+            "example": 1
+          }
+        },
+        "required": [
+          "title",
+          "sportId"
+        ]
+      },
+      "UpdateQuestionnaireTemplateDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Titre du template de questionnaire",
+            "example": "Questionnaire de suivi quotidien",
+            "maxLength": 200
+          },
+          "sportId": {
+            "type": "number",
+            "description": "ID du sport",
+            "example": 1
+          }
+        }
+      },
+      "CreateQuestionTemplateDto": {
+        "type": "object",
+        "properties": {
+          "templateId": {
+            "type": "number",
+            "description": "ID du template de questionnaire",
+            "example": 1
+          },
+          "title": {
+            "type": "string",
+            "description": "Titre de la question",
+            "example": "Comment vous sentez-vous aujourd'hui ?",
+            "maxLength": 300
+          },
+          "type": {
+            "type": "string",
+            "description": "Type de question",
+            "enum": [
+              "TEXT",
+              "NUMBER",
+              "BOOLEAN",
+              "SINGLE_CHOICE",
+              "MULTIPLE_CHOICE",
+              "SCALE"
+            ],
+            "example": "SINGLE_CHOICE"
+          },
+          "options": {
+            "description": "Options de réponse (pour les questions à choix)",
+            "example": [
+              "Très bien",
+              "Bien",
+              "Moyen",
+              "Fatigué"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "order": {
+            "type": "number",
+            "description": "Ordre d'affichage de la question",
+            "example": 0
+          }
+        },
+        "required": [
+          "templateId",
+          "title",
+          "type"
+        ]
+      },
+      "UpdateQuestionTemplateDto": {
+        "type": "object",
+        "properties": {
+          "templateId": {
+            "type": "number",
+            "description": "ID du template de questionnaire",
+            "example": 1
+          },
+          "title": {
+            "type": "string",
+            "description": "Titre de la question",
+            "example": "Comment vous sentez-vous aujourd'hui ?",
+            "maxLength": 300
+          },
+          "type": {
+            "type": "string",
+            "description": "Type de question",
+            "enum": [
+              "TEXT",
+              "NUMBER",
+              "BOOLEAN",
+              "SINGLE_CHOICE",
+              "MULTIPLE_CHOICE",
+              "SCALE"
+            ],
+            "example": "SINGLE_CHOICE"
+          },
+          "options": {
+            "description": "Options de réponse (pour les questions à choix)",
+            "example": [
+              "Très bien",
+              "Bien",
+              "Moyen",
+              "Fatigué"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "order": {
+            "type": "number",
+            "description": "Ordre d'affichage de la question",
+            "example": 0
+          }
+        }
+      },
+      "QuestionnaireTeamDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "First Team"
+          },
+          "description": {
+            "type": "object",
+            "example": "Main team",
+            "nullable": true
+          },
+          "logoUrl": {
+            "type": "object",
+            "example": "https://example.com/logo.png",
+            "nullable": true
+          },
+          "clubId": {
+            "type": "number",
+            "example": 1
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "description",
+          "logoUrl",
+          "clubId"
+        ]
+      },
+      "QuestionnaireCountDto": {
+        "type": "object",
+        "properties": {
+          "questions": {
+            "type": "number",
+            "example": 10
+          }
+        },
+        "required": [
+          "questions"
+        ]
+      },
+      "QuestionnaireListItemDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 1
+          },
+          "title": {
+            "type": "string",
+            "example": "Weekly Check-in"
+          },
+          "description": {
+            "type": "object",
+            "example": "Check your wellness",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "example": "DRAFT",
+            "enum": [
+              "DRAFT",
+              "ACTIVE",
+              "COMPLETED",
+              "ARCHIVED"
+            ]
+          },
+          "teamId": {
+            "type": "number",
+            "example": 1
+          },
+          "createdBy": {
+            "type": "number",
+            "example": 1
+          },
+          "staffId": {
+            "type": "number",
+            "example": 1
+          },
+          "scheduledAt": {
+            "type": "object",
+            "example": "2026-04-29T08:00:00.000Z",
+            "nullable": true
+          },
+          "closesAt": {
+            "type": "object",
+            "example": "2026-04-29T12:00:00.000Z",
+            "nullable": true
+          },
+          "eventId": {
+            "type": "object",
+            "example": 1,
+            "nullable": true
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2024-01-01T00:00:00Z"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2024-01-15T12:00:00Z"
+          },
+          "team": {
+            "$ref": "#/components/schemas/QuestionnaireTeamDto"
+          },
+          "_count": {
+            "$ref": "#/components/schemas/QuestionnaireCountDto"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "description",
+          "status",
+          "teamId",
+          "createdBy",
+          "staffId",
+          "scheduledAt",
+          "closesAt",
+          "eventId",
+          "createdAt",
+          "updatedAt",
+          "team",
+          "_count"
+        ]
+      },
+      "CreatorNestedDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 1
+          },
+          "firstName": {
+            "type": "object",
+            "example": "John",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "object",
+            "example": "Doe",
+            "nullable": true
+          },
+          "specialty": {
+            "type": "object",
+            "example": "Physiotherapist",
+            "nullable": true
+          }
+        },
+        "required": [
+          "id",
+          "firstName",
+          "lastName",
+          "specialty"
+        ]
+      },
+      "QuestionNestedDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 1
+          },
+          "title": {
+            "type": "string",
+            "example": "How are you feeling?"
+          },
+          "type": {
+            "type": "string",
+            "example": "TEXT"
+          },
+          "isRequired": {
+            "type": "boolean",
+            "example": true
+          },
+          "order": {
+            "type": "number",
+            "example": 1
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "type",
+          "isRequired",
+          "order"
+        ]
+      },
+      "QuestionnaireResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 1
+          },
+          "title": {
+            "type": "string",
+            "example": "Weekly Check-in"
+          },
+          "description": {
+            "type": "object",
+            "example": "Check your wellness",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "example": "DRAFT",
+            "enum": [
+              "DRAFT",
+              "ACTIVE",
+              "COMPLETED",
+              "ARCHIVED"
+            ]
+          },
+          "teamId": {
+            "type": "number",
+            "example": 1
+          },
+          "createdBy": {
+            "type": "number",
+            "example": 1
+          },
+          "staffId": {
+            "type": "number",
+            "example": 1
+          },
+          "scheduledAt": {
+            "type": "object",
+            "example": "2026-04-29T08:00:00.000Z",
+            "nullable": true
+          },
+          "closesAt": {
+            "type": "object",
+            "example": "2026-04-29T12:00:00.000Z",
+            "nullable": true
+          },
+          "eventId": {
+            "type": "object",
+            "example": 1,
+            "nullable": true
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2024-01-01T00:00:00Z"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2024-01-15T12:00:00Z"
+          },
+          "team": {
+            "$ref": "#/components/schemas/QuestionnaireTeamDto"
+          },
+          "creator": {
+            "$ref": "#/components/schemas/CreatorNestedDto"
+          },
+          "questions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuestionNestedDto"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "description",
+          "status",
+          "teamId",
+          "createdBy",
+          "staffId",
+          "scheduledAt",
+          "closesAt",
+          "eventId",
+          "createdAt",
+          "updatedAt",
+          "team",
+          "creator",
+          "questions"
+        ]
+      },
+      "CreateQuestionnaireDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Titre du questionnaire",
+            "example": "Questionnaire post-match",
+            "maxLength": 200
+          },
+          "description": {
+            "type": "string",
+            "description": "Description du questionnaire",
+            "example": "Évaluation de la condition physique et mentale après le match",
+            "maxLength": 1000
+          },
+          "teamId": {
+            "type": "number",
+            "description": "ID de l'équipe",
+            "example": 1,
+            "minimum": 1
+          },
+          "createdBy": {
+            "type": "number",
+            "description": "ID du staff créateur",
+            "example": 1,
+            "minimum": 1
+          },
+          "status": {
+            "type": "string",
+            "description": "Statut du questionnaire",
+            "enum": [
+              "DRAFT",
+              "ACTIVE",
+              "COMPLETED",
+              "ARCHIVED"
+            ],
+            "example": "DRAFT",
+            "default": "DRAFT"
+          },
+          "scheduledAt": {
+            "type": "string",
+            "description": "Date de planification",
+            "example": "2026-04-29T08:00:00.000Z"
+          },
+          "closesAt": {
+            "type": "string",
+            "description": "Date limite de réponse",
+            "example": "2026-04-29T12:00:00.000Z"
+          },
+          "eventId": {
+            "type": "number",
+            "description": "ID de l'événement calendrier associé",
+            "example": 1
+          }
+        },
+        "required": [
+          "title",
+          "teamId",
+          "createdBy"
+        ]
+      },
+      "UpdateQuestionnaireDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Titre du questionnaire",
+            "example": "Questionnaire post-match",
+            "maxLength": 200
+          },
+          "description": {
+            "type": "string",
+            "description": "Description du questionnaire",
+            "example": "Évaluation de la condition physique et mentale après le match",
+            "maxLength": 1000
+          },
+          "teamId": {
+            "type": "number",
+            "description": "ID de l'équipe",
+            "example": 1,
+            "minimum": 1
+          },
+          "createdBy": {
+            "type": "number",
+            "description": "ID du staff créateur",
+            "example": 1,
+            "minimum": 1
+          },
+          "status": {
+            "type": "string",
+            "description": "Statut du questionnaire",
+            "enum": [
+              "DRAFT",
+              "ACTIVE",
+              "COMPLETED",
+              "ARCHIVED"
+            ],
+            "example": "DRAFT",
+            "default": "DRAFT"
+          },
+          "scheduledAt": {
+            "type": "string",
+            "description": "Date de planification",
+            "example": "2026-04-29T08:00:00.000Z"
+          },
+          "closesAt": {
+            "type": "string",
+            "description": "Date limite de réponse",
+            "example": "2026-04-29T12:00:00.000Z"
+          },
+          "eventId": {
+            "type": "number",
+            "description": "ID de l'événement calendrier associé",
+            "example": 1
+          }
+        }
+      },
+      "CreateQuestionDto": {
+        "type": "object",
+        "properties": {
+          "questionnaireId": {
+            "type": "number",
+            "description": "ID du questionnaire",
+            "example": 1,
+            "minimum": 1
+          },
+          "title": {
+            "type": "string",
+            "description": "Titre de la question",
+            "example": "Comment vous sentez-vous après le match ?",
+            "maxLength": 500
+          },
+          "type": {
+            "type": "string",
+            "description": "Type de question",
+            "enum": [
+              "TEXT",
+              "NUMBER",
+              "BOOLEAN",
+              "SINGLE_CHOICE",
+              "MULTIPLE_CHOICE",
+              "SCALE"
+            ],
+            "example": "SINGLE_CHOICE"
+          },
+          "options": {
+            "description": "Options de réponse (pour SINGLE_CHOICE, MULTIPLE_CHOICE)",
+            "example": [
+              "Très bien",
+              "Bien",
+              "Moyen",
+              "Fatigué"
+            ],
+            "default": [],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "isRequired": {
+            "type": "boolean",
+            "description": "Question obligatoire",
+            "example": true,
+            "default": true
+          },
+          "order": {
+            "type": "number",
+            "description": "Ordre d'affichage de la question",
+            "example": 1,
+            "default": 0
+          }
+        },
+        "required": [
+          "questionnaireId",
+          "title",
+          "type"
+        ]
+      },
+      "UpdateQuestionDto": {
+        "type": "object",
+        "properties": {
+          "questionnaireId": {
+            "type": "number",
+            "description": "ID du questionnaire",
+            "example": 1,
+            "minimum": 1
+          },
+          "title": {
+            "type": "string",
+            "description": "Titre de la question",
+            "example": "Comment vous sentez-vous après le match ?",
+            "maxLength": 500
+          },
+          "type": {
+            "type": "string",
+            "description": "Type de question",
+            "enum": [
+              "TEXT",
+              "NUMBER",
+              "BOOLEAN",
+              "SINGLE_CHOICE",
+              "MULTIPLE_CHOICE",
+              "SCALE"
+            ],
+            "example": "SINGLE_CHOICE"
+          },
+          "options": {
+            "description": "Options de réponse (pour SINGLE_CHOICE, MULTIPLE_CHOICE)",
+            "example": [
+              "Très bien",
+              "Bien",
+              "Moyen",
+              "Fatigué"
+            ],
+            "default": [],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "isRequired": {
+            "type": "boolean",
+            "description": "Question obligatoire",
+            "example": true,
+            "default": true
+          },
+          "order": {
+            "type": "number",
+            "description": "Ordre d'affichage de la question",
+            "example": 1,
+            "default": 0
+          }
+        }
+      },
+      "SensitivePlayerDataListItemDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "ID of the sensitive player data",
+            "example": 1
+          },
+          "playerId": {
+            "type": "number",
+            "description": "ID of the player",
+            "example": 1
+          },
+          "weight": {
+            "type": "object",
+            "description": "Weight in kg",
+            "example": 75.5
+          },
+          "height": {
+            "type": "object",
+            "description": "Height in cm",
+            "example": 180
+          },
+          "birthDate": {
+            "type": "object",
+            "description": "Birth date",
+            "example": "1995-05-15T00:00:00.000Z"
+          },
+          "nationality": {
+            "type": "object",
+            "description": "Nationality (ISO-2 code)",
+            "example": "FR"
+          },
+          "gender": {
+            "type": "string",
+            "description": "Gender",
+            "enum": [
+              "MALE",
+              "FEMALE",
+              "OTHER"
+            ],
+            "example": "MALE"
+          }
+        },
+        "required": [
+          "id",
+          "playerId"
+        ]
+      },
+      "SensitivePlayerDataResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "ID of the sensitive player data",
+            "example": 1
+          },
+          "playerId": {
+            "type": "number",
+            "description": "ID of the player",
+            "example": 1
+          },
+          "weight": {
+            "type": "object",
+            "description": "Weight in kg",
+            "example": 75.5
+          },
+          "height": {
+            "type": "object",
+            "description": "Height in cm",
+            "example": 180
+          },
+          "birthDate": {
+            "type": "object",
+            "description": "Birth date",
+            "example": "1995-05-15T00:00:00.000Z"
+          },
+          "nationality": {
+            "type": "object",
+            "description": "Nationality (ISO-2 code)",
+            "example": "FR"
+          },
+          "gender": {
+            "type": "string",
+            "description": "Gender",
+            "enum": [
+              "MALE",
+              "FEMALE",
+              "OTHER"
+            ],
+            "example": "MALE"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Creation date",
+            "example": "2024-01-01T00:00:00.000Z"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Last update date",
+            "example": "2024-01-01T00:00:00.000Z"
+          }
+        },
+        "required": [
+          "id",
+          "playerId",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "CreateSensitivePlayerDataDto": {
+        "type": "object",
+        "properties": {
+          "playerId": {
+            "type": "number",
+            "description": "ID du joueur",
+            "example": 1
+          },
+          "weight": {
+            "type": "number",
+            "description": "Poids (kg)",
+            "example": 75.5
+          },
+          "height": {
+            "type": "number",
+            "description": "Taille (cm)",
+            "example": 180
+          },
+          "birthDate": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Date de naissance",
+            "example": "1995-01-01T00:00:00.000Z"
+          },
+          "medicalNotes": {
+            "type": "string",
+            "description": "Notes médicales",
+            "maxLength": 2000
+          },
+          "nationality": {
+            "type": "string",
+            "description": "Nationalité (code pays ISO-2)",
+            "example": "FR"
+          },
+          "gender": {
+            "type": "string",
+            "description": "Genre",
+            "enum": [
+              "MALE",
+              "FEMALE",
+              "OTHER"
+            ],
+            "example": "MALE"
+          }
+        },
+        "required": [
+          "playerId",
+          "gender"
+        ]
+      },
+      "UpdateSensitivePlayerDataDto": {
+        "type": "object",
+        "properties": {
+          "playerId": {
+            "type": "number",
+            "description": "ID du joueur",
+            "example": 1
+          },
+          "weight": {
+            "type": "number",
+            "description": "Poids (kg)",
+            "example": 75.5
+          },
+          "height": {
+            "type": "number",
+            "description": "Taille (cm)",
+            "example": 180
+          },
+          "birthDate": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Date de naissance",
+            "example": "1995-01-01T00:00:00.000Z"
+          },
+          "medicalNotes": {
+            "type": "string",
+            "description": "Notes médicales",
+            "maxLength": 2000
+          },
+          "nationality": {
+            "type": "string",
+            "description": "Nationalité (code pays ISO-2)",
+            "example": "FR"
+          },
+          "gender": {
+            "type": "string",
+            "description": "Genre",
+            "enum": [
+              "MALE",
+              "FEMALE",
+              "OTHER"
+            ],
+            "example": "MALE"
+          }
+        }
+      },
+      "SportListItemDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "Sport ID",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "description": "Sport name",
+            "example": "Football"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Creation timestamp",
+            "example": "2024-01-01T00:00:00Z"
+          },
+          "_count": {
+            "description": "Counts",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CountDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "createdAt",
+          "_count"
+        ]
+      },
+      "TemplateNestedDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "Template ID",
+            "example": 1
+          },
+          "sportId": {
+            "type": "number",
+            "description": "Sport ID",
+            "example": 1
+          },
+          "title": {
+            "type": "string",
+            "description": "Template title",
+            "example": "Weekly Check-in"
+          }
+        },
+        "required": [
+          "id",
+          "sportId",
+          "title"
+        ]
+      },
+      "SportResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "Sport ID",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "description": "Sport name",
+            "example": "Football"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Creation timestamp",
+            "example": "2024-01-01T00:00:00Z"
+          },
+          "positions": {
+            "description": "Positions",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PositionNestedDto"
+            }
+          },
+          "templates": {
+            "description": "Templates",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TemplateNestedDto"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "createdAt",
+          "positions",
+          "templates"
+        ]
+      },
+      "CreateSportDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Nom du sport",
+            "example": "Football",
+            "minLength": 1,
+            "maxLength": 100
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "UpdateSportDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Nom du sport",
+            "example": "Football",
+            "minLength": 1,
+            "maxLength": 100
+          }
+        }
+      },
+      "CreateStaffDto": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "number",
+            "description": "ID de l'utilisateur",
+            "example": 1
+          },
+          "clubId": {
+            "type": "number",
+            "description": "ID du club",
+            "example": 1
+          },
+          "firstName": {
+            "type": "string",
+            "description": "Prénom",
+            "example": "Jean",
+            "maxLength": 100
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Nom",
+            "example": "Dupont",
+            "maxLength": 100
+          },
+          "specialty": {
+            "type": "string",
+            "description": "Spécialité",
+            "example": "Préparateur physique",
+            "maxLength": 255
+          },
+          "phone": {
+            "type": "string",
+            "description": "Téléphone",
+            "example": "+33612345678",
+            "maxLength": 50
+          },
+          "certifications": {
+            "type": "string",
+            "description": "Certifications",
+            "example": "BEES 2, Diplôme de kinésithérapie",
+            "maxLength": 1000
+          }
+        },
+        "required": [
+          "userId",
+          "clubId"
+        ]
+      },
+      "UpdateStaffDto": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "number",
+            "description": "ID de l'utilisateur",
+            "example": 1
+          },
+          "clubId": {
+            "type": "number",
+            "description": "ID du club",
+            "example": 1
+          },
+          "firstName": {
+            "type": "string",
+            "description": "Prénom",
+            "example": "Jean",
+            "maxLength": 100
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Nom",
+            "example": "Dupont",
+            "maxLength": 100
+          },
+          "specialty": {
+            "type": "string",
+            "description": "Spécialité",
+            "example": "Préparateur physique",
+            "maxLength": 255
+          },
+          "phone": {
+            "type": "string",
+            "description": "Téléphone",
+            "example": "+33612345678",
+            "maxLength": 50
+          },
+          "certifications": {
+            "type": "string",
+            "description": "Certifications",
+            "example": "BEES 2, Diplôme de kinésithérapie",
+            "maxLength": 1000
+          }
+        }
+      },
+      "TeamListItemDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "Team ID",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "description": "Team name",
+            "example": "First Team"
+          },
+          "description": {
+            "type": "string",
+            "description": "Team description",
+            "example": "Senior football team",
+            "nullable": true
+          },
+          "logoUrl": {
+            "type": "string",
+            "description": "Team logo URL",
+            "example": "https://example.com/logo.png",
+            "nullable": true
+          },
+          "sportId": {
+            "type": "number",
+            "description": "Sport ID",
+            "example": 1
+          },
+          "clubId": {
+            "type": "number",
+            "description": "Club ID",
+            "example": 1
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Creation timestamp",
+            "example": "2024-01-01T00:00:00Z"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Last update timestamp",
+            "example": "2024-01-15T12:00:00Z"
+          },
+          "club": {
+            "description": "Club details",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ClubNestedDto"
+              }
+            ]
+          },
+          "_count": {
+            "description": "Counts",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CountDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "sportId",
+          "clubId",
+          "createdAt",
+          "updatedAt",
+          "club",
+          "_count"
+        ]
+      },
+      "PlayerNestedDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "Player ID",
+            "example": 1
+          },
+          "firstName": {
+            "type": "string",
+            "description": "First name",
+            "example": "John"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Last name",
+            "example": "Doe"
+          },
+          "nickName": {
+            "type": "string",
+            "description": "Nickname",
+            "example": "Johnny",
+            "nullable": true
+          },
+          "isActive": {
+            "type": "boolean",
+            "description": "Is active",
+            "example": true
+          },
+          "positionId": {
+            "type": "number",
+            "description": "Position ID",
+            "example": 1,
+            "nullable": true
+          }
+        },
+        "required": [
+          "id",
+          "firstName",
+          "lastName",
+          "nickName",
+          "isActive",
+          "positionId"
+        ]
+      },
+      "QuestionnaireNestedDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "Questionnaire ID",
+            "example": 1
+          },
+          "title": {
+            "type": "string",
+            "description": "Title",
+            "example": "Weekly Check-in"
+          },
+          "status": {
+            "type": "string",
+            "description": "Status",
+            "example": "DRAFT",
+            "enum": [
+              "DRAFT",
+              "ACTIVE",
+              "ARCHIVED"
+            ]
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Creation timestamp",
+            "example": "2024-01-01T00:00:00Z"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "status",
+          "createdAt"
+        ]
+      },
+      "TeamResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "Team ID",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "description": "Team name",
+            "example": "First Team"
+          },
+          "description": {
+            "type": "string",
+            "description": "Team description",
+            "example": "Senior football team",
+            "nullable": true
+          },
+          "logoUrl": {
+            "type": "string",
+            "description": "Team logo URL",
+            "example": "https://example.com/logo.png",
+            "nullable": true
+          },
+          "sportId": {
+            "type": "number",
+            "description": "Sport ID",
+            "example": 1
+          },
+          "clubId": {
+            "type": "number",
+            "description": "Club ID",
+            "example": 1
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Creation timestamp",
+            "example": "2024-01-01T00:00:00Z"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Last update timestamp",
+            "example": "2024-01-15T12:00:00Z"
+          },
+          "club": {
+            "description": "Club details",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ClubNestedDto"
+              }
+            ]
+          },
+          "players": {
+            "description": "Players",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PlayerNestedDto"
+            }
+          },
+          "questionnaires": {
+            "description": "Questionnaires",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuestionnaireNestedDto"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "sportId",
+          "clubId",
+          "createdAt",
+          "updatedAt",
+          "club",
+          "players",
+          "questionnaires"
+        ]
+      },
+      "CreateTeamDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Nom de l'équipe",
+            "example": "Équipe première",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "description": {
+            "type": "string",
+            "description": "Description de l'équipe",
+            "example": "Équipe senior masculine de football",
+            "maxLength": 500
+          },
+          "logoUrl": {
+            "type": "string",
+            "description": "URL du logo",
+            "example": "https://example.com/team-logo.png"
+          },
+          "clubId": {
+            "type": "number",
+            "description": "ID du club",
+            "example": 1,
+            "minimum": 1
+          },
+          "sportId": {
+            "type": "number",
+            "description": "ID du sport",
+            "example": 1,
+            "minimum": 1
+          }
+        },
+        "required": [
+          "name",
+          "clubId",
+          "sportId"
+        ]
+      },
+      "UpdateTeamDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Nom de l'équipe",
+            "example": "Équipe première",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "description": {
+            "type": "string",
+            "description": "Description de l'équipe",
+            "example": "Équipe senior masculine de football",
+            "maxLength": 500
+          },
+          "logoUrl": {
+            "type": "string",
+            "description": "URL du logo",
+            "example": "https://example.com/team-logo.png"
+          },
+          "clubId": {
+            "type": "number",
+            "description": "ID du club",
+            "example": 1,
+            "minimum": 1
+          },
+          "sportId": {
+            "type": "number",
+            "description": "ID du sport",
+            "example": 1,
+            "minimum": 1
+          }
+        }
+      }
+    }
+  }
+}
