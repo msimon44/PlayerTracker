@@ -1,5 +1,7 @@
 # PlayerTracker - Monorepo
 
+[![CI](https://github.com/msimon44/PlayerTracker/actions/workflows/ci.yml/badge.svg)](https://github.com/msimon44/PlayerTracker/actions/workflows/ci.yml)
+
 Plateforme de gestion d'athlètes construite avec TypeScript, utilisant une architecture monorepo avec Turborepo et une
 approche **Code-First OpenAPI**.
 
@@ -51,7 +53,7 @@ graph LR
 
 ```bash
 # 1. Cloner le projet
-git clone https://framagit.org/zowx/PlayerTracker.git
+git clone https://github.com/msimon44/PlayerTracker.git
 cd PlayerTracker
 
 # 2. Configuration automatique

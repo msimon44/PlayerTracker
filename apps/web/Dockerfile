@@ -1,82 +1,64 @@
-# Multi-stage build for Next.js production
-FROM node:18-alpine AS base
+# Multi-stage build for production, basé sur le pattern officiel Turborepo
+# (https://turborepo.com/docs/guides/tools/docker) pour un monorepo pnpm + Next.js.
+FROM node:20-alpine AS base
 
-# Install dependencies only when needed
-FROM base AS deps
-RUN apk add --no-cache libc6-compat
+# ---------------------------------------------------------------------------
+# 1. Builder : élague le monorepo pour ne garder que ce dont le web a besoin
+# ---------------------------------------------------------------------------
+FROM base AS builder
+RUN apk update && apk add --no-cache libc6-compat
 WORKDIR /app
+RUN npm install -g turbo
+COPY . .
+RUN turbo prune @playertracker/web --docker
 
-# Install pnpm
+# ---------------------------------------------------------------------------
+# 2. Installer : installe les dépendances élaguées, génère le client API
+#    (Orval, à partir du contrat OpenAPI versionné dans specs/), puis build
+# ---------------------------------------------------------------------------
+FROM base AS installer
+RUN apk update && apk add --no-cache libc6-compat
+WORKDIR /app
 RUN npm install -g pnpm
 
-# Copy package files from monorepo root
-COPY package.json pnpm-lock.yaml* ./
-COPY apps/web/package.json ./apps/web/
-COPY packages/ui/package.json ./packages/ui/
-COPY packages/types/package.json ./packages/types/
-COPY packages/utils/package.json ./packages/utils/
-COPY packages/config/package.json ./packages/config/
-
-# Install dependencies
+# Dépendances (couche mise en cache tant que le lockfile élagué ne change pas)
+COPY --from=builder /app/out/json/ .
 RUN pnpm install --frozen-lockfile
 
-# Rebuild the source code only when needed
-FROM base AS builder
-WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
+# Code source complet des packages nécessaires + du web
+COPY --from=builder /app/out/full/ .
+# Le contrat OpenAPI n'est pas un package du workspace : on le récupère
+# explicitement depuis le checkout complet conservé côté builder.
+COPY --from=builder /app/specs ./specs
 
-# Copy root package.json and workspace configuration files
-COPY package.json ./
-COPY pnpm-workspace.yaml ./
-COPY turbo.json ./
-COPY tsconfig.json ./
-
-# Copy built packages first (assumes packages are built locally)
-COPY packages/types/dist ./packages/types/dist
-COPY packages/types/package.json ./packages/types/
-COPY packages/utils/dist ./packages/utils/dist
-COPY packages/utils/package.json ./packages/utils/
-COPY packages/ui/dist ./packages/ui/dist
-COPY packages/ui/package.json ./packages/ui/
-COPY packages/config ./packages/config
-
-# Copy web app source
-COPY apps/web ./apps/web
-
-ARG NEXT_PUBLIC_API_URL
+ARG NEXT_PUBLIC_API_URL=http://localhost:3001
+ARG NEXT_PUBLIC_FRONTEND_URL=http://localhost:3000
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_FRONTEND_URL=$NEXT_PUBLIC_FRONTEND_URL
 
-# Install pnpm
-RUN npm install -g pnpm
+RUN pnpm --filter @playertracker/web generate:client
+RUN pnpm turbo build --filter=@playertracker/web
 
-# Build Next.js app
-WORKDIR /app/apps/web
-RUN pnpm build
-
-# Production image, copy all the files and run next
+# ---------------------------------------------------------------------------
+# 3. Runner : image de production minimale (sortie Next.js "standalone")
+# ---------------------------------------------------------------------------
 FROM base AS runner
 WORKDIR /app
 
-ENV NODE_ENV production
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
 
-RUN addgroup --system --gid 1001 nodejs && \
-    adduser --system --uid 1001 nextjs
-
-# Copy production files
-COPY --from=builder /app/apps/web/public ./public
-
-# Set the correct permission for prerender cache
-RUN mkdir .next && chown nextjs:nodejs .next
-
-# Automatically leverage output traces to reduce image size
-COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/static ./.next/static
+COPY --from=installer /app/apps/web/next.config.js ./apps/web/next.config.js
+COPY --from=installer /app/apps/web/package.json ./apps/web/package.json
+COPY --from=installer --chown=nextjs:nodejs /app/apps/web/.next/standalone ./
+COPY --from=installer --chown=nextjs:nodejs /app/apps/web/.next/static ./apps/web/.next/static
+COPY --from=installer --chown=nextjs:nodejs /app/apps/web/public ./apps/web/public
 
 USER nextjs
 
+ENV NODE_ENV=production
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
 EXPOSE 3000
 
-ENV PORT 3000
-ENV HOSTNAME "0.0.0.0"
-
-CMD ["node", "server.js"]
+CMD ["node", "apps/web/server.js"]

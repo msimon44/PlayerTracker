@@ -1,0 +1,231 @@
+name: CI
+
+# Intégration continue : à chaque push/PR sur main, on vérifie le format, le lint,
+# le typage, les tests (unitaires + e2e avec une vraie base Postgres) puis le build
+# de l'ensemble du monorepo (apps + packages partagés).
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  packages: write
+
+env:
+  NODE_VERSION: '20'
+  PNPM_VERSION: '10.12.2'
+  # Secrets factices, suffisants pour lint/type-check/build/tests en CI
+  # (aucun service externe réel n'est appelé dans le pipeline).
+  JWT_SECRET: ci-jwt-secret-not-for-production
+  JWT_REFRESH_SECRET: ci-jwt-refresh-secret-not-for-production
+  SESSION_SECRET: ci-session-secret-not-for-production
+  ENCRYPTION_KEY: ci-encryption-key-32-characters-min
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # 1. Qualité statique : formatage, lint, typage
+  # ---------------------------------------------------------------------------
+  lint-and-typecheck:
+    name: Lint & Type-check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate Prisma client
+        run: pnpm --filter @playertracker/api prisma:generate
+
+      - name: Generate API client (Orval, à partir du contrat OpenAPI versionné)
+        run: pnpm --filter @playertracker/web generate:client
+
+      - name: Format check
+        run: pnpm format:check
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Type-check
+        run: pnpm type-check
+
+  # ---------------------------------------------------------------------------
+  # 2. Tests unitaires (API)
+  # ---------------------------------------------------------------------------
+  test-unit:
+    name: Tests unitaires
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate Prisma client
+        run: pnpm --filter @playertracker/api prisma:generate
+
+      # TODO(tests unitaires) : retirer --passWithNoTests une fois que de vrais
+      # tests unitaires (*.spec.ts) auront été ajoutés dans apps/api/src.
+      - name: Run unit tests
+        run: pnpm --filter @playertracker/api exec jest --ci --passWithNoTests
+
+  # ---------------------------------------------------------------------------
+  # 3. Tests end-to-end (API + vraie base PostgreSQL éphémère)
+  # ---------------------------------------------------------------------------
+  test-e2e:
+    name: Tests e2e
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: playertracker_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/playertracker_test?schema=public
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Apply Prisma migrations
+        run: pnpm --filter @playertracker/api exec prisma migrate deploy
+
+      - name: Generate Prisma client
+        run: pnpm --filter @playertracker/api prisma:generate
+
+      - name: Run e2e tests
+        run: pnpm --filter @playertracker/api test:e2e
+
+  # ---------------------------------------------------------------------------
+  # 4. Build de l'ensemble du monorepo (gate finale avant merge/déploiement)
+  # ---------------------------------------------------------------------------
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs: [lint-and-typecheck, test-unit, test-e2e]
+    env:
+      NEXT_PUBLIC_API_URL: http://localhost:3001
+      NEXT_PUBLIC_FRONTEND_URL: http://localhost:3000
+      NEXT_PUBLIC_APP_URL: http://localhost:3002
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate Prisma client
+        run: pnpm --filter @playertracker/api prisma:generate
+
+      - name: Generate API client (Orval)
+        run: pnpm --filter @playertracker/web generate:client
+
+      - name: Build all apps and packages
+        run: pnpm build
+
+  # ---------------------------------------------------------------------------
+  # 5. Déploiement continu : publication des images Docker sur GHCR
+  #    Uniquement sur main, une fois toutes les vérifications passées.
+  # ---------------------------------------------------------------------------
+  docker-publish:
+    name: Publish Docker image (${{ matrix.app }})
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: [build]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        app: [api, web, landing]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.repository_owner }}/playertracker-${{ matrix.app }}
+          tags: |
+            type=sha,prefix=
+            type=raw,value=latest
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: apps/${{ matrix.app }}/Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha,scope=${{ matrix.app }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.app }}

@@ -1,74 +1,52 @@
-# Multi-stage build for production
-FROM node:18-alpine AS base
+# Multi-stage build for production, basé sur le pattern officiel Turborepo
+# (https://turborepo.com/docs/guides/tools/docker) pour un monorepo pnpm.
+FROM node:20-alpine AS base
 
-# Install dependencies only when needed
-FROM base AS deps
-RUN apk add --no-cache libc6-compat
+# ---------------------------------------------------------------------------
+# 1. Builder : élague le monorepo pour ne garder que ce dont l'API a besoin
+# ---------------------------------------------------------------------------
+FROM base AS builder
+RUN apk update && apk add --no-cache libc6-compat
 WORKDIR /app
+RUN npm install -g turbo
+COPY . .
+RUN turbo prune @playertracker/api --docker
 
-# Install pnpm
+# ---------------------------------------------------------------------------
+# 2. Installer : installe les dépendances élaguées puis build l'API
+# ---------------------------------------------------------------------------
+FROM base AS installer
+RUN apk update && apk add --no-cache libc6-compat
+WORKDIR /app
 RUN npm install -g pnpm
 
-# Copy package files from monorepo root
-COPY package.json pnpm-lock.yaml* ./
-COPY apps/api/package.json ./apps/api/
-COPY packages/types/package.json ./packages/types/
-COPY packages/utils/package.json ./packages/utils/
-COPY packages/config/package.json ./packages/config/
-COPY packages/ui/package.json ./packages/ui/
-
-# Install dependencies
+# Dépendances (couche mise en cache tant que le lockfile élagué ne change pas)
+COPY --from=builder /app/out/json/ .
 RUN pnpm install --frozen-lockfile
 
-# Rebuild the source code only when needed
-FROM base AS builder
-WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
+# Code source complet des packages nécessaires + de l'API
+COPY --from=builder /app/out/full/ .
 
-# Copy root package.json and workspace configuration files
-COPY package.json ./
-COPY pnpm-workspace.yaml ./
-COPY turbo.json ./
-COPY tsconfig.json ./
+RUN cd apps/api && npx prisma generate
+RUN pnpm turbo build --filter=@playertracker/api
 
-# Copy shared packages first
-COPY packages ./packages
-
-# Copy API source
-COPY apps/api ./apps/api
-
-# Install pnpm
-RUN npm install -g pnpm
-
-# Build packages using turbo from root
-RUN pnpm build:packages
-
-# Generate Prisma client
-WORKDIR /app/apps/api
-RUN npx prisma generate
-
-# Build the API
-RUN pnpm build
-
-# Production image, copy all the files and run the app
+# ---------------------------------------------------------------------------
+# 3. Runner : image de production minimale
+# ---------------------------------------------------------------------------
 FROM base AS runner
 WORKDIR /app
-
-ENV NODE_ENV production
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nestjs
 
-# Copy built application
-COPY --from=builder /app/apps/api/dist ./dist
-COPY --from=builder /app/apps/api/prisma ./prisma
-COPY --from=builder /app/apps/api/package.json ./package.json
-COPY --from=builder /app/node_modules ./node_modules
+COPY --from=installer /app .
 
 USER nestjs
 
+WORKDIR /app/apps/api
+
+ENV NODE_ENV=production
+ENV PORT=3001
 EXPOSE 3001
 
-ENV PORT 3001
-
-CMD ["node", "dist/main"]
+CMD ["node", "dist/src/main"]
