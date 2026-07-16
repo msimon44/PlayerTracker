@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
 import { CreateTeamDto } from './dto/create-team.dto';
 import { TeamListItemDto, TeamResponseDto } from './dto/team-response.dto';
@@ -331,7 +331,7 @@ export class TeamsService {
         });
 
         if (!team) {
-            throw new Error('Équipe introuvable');
+            throw new NotFoundException('Équipe introuvable');
         }
 
         return {
@@ -412,7 +412,7 @@ export class TeamsService {
         });
 
         if (!team) {
-            throw new Error('Équipe introuvable');
+            throw new NotFoundException('Équipe introuvable');
         }
 
         return {

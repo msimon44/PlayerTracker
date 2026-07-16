@@ -1,4 +1,16 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query, Request, UseGuards } from '@nestjs/common';
+import {
+    Body,
+    Controller,
+    Delete,
+    Get,
+    Param,
+    Patch,
+    Post,
+    Query,
+    Request,
+    UnauthorizedException,
+    UseGuards,
+} from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { type AuthenticatedRequest } from '../auth/types/auth-request.types';
 import { CreateStaffDto } from './dto/create-staff.dto';
@@ -13,7 +25,7 @@ export class StaffController {
     @Get('me')
     findCurrentStaff(@Request() req: AuthenticatedRequest): Promise<StaffResponseDto> {
         if (!req.user || !req.user.userId) {
-            throw new Error('User not authenticated or user ID missing');
+            throw new UnauthorizedException('User not authenticated or user ID missing');
         }
 
         return this.staffService.findByUserId(req.user.userId);

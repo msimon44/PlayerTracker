@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
 import { ClubListItemDto, ClubResponseDto } from './dto/club-response.dto';
 import { CreateClubDto } from './dto/create-club.dto';
@@ -68,7 +68,7 @@ export class ClubsService {
         });
 
         if (!club) {
-            throw new Error(`Club with ID ${id} not found`);
+            throw new NotFoundException(`Club with ID ${id} not found`);
         }
 
         return {
