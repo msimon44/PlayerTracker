@@ -4,7 +4,7 @@ import {
     ValidatorConstraint,
     ValidatorConstraintInterface,
 } from 'class-validator';
-import * as commonPasswordsData from './common-passwords.json';
+import commonPasswordsData from './common-passwords.json';
 
 /**
  * Common passwords list
@@ -13,7 +13,7 @@ import * as commonPasswordsData from './common-passwords.json';
  * Update frequency: Yearly or after major breaches
  * To update: curl -s "https://raw.githubusercontent.com/danielmiessler/SecLists/master/Passwords/Common-Credentials/10k-most-common.txt" | head -1000
  */
-const COMMON_PASSWORDS: string[] = commonPasswordsData as any;
+const COMMON_PASSWORDS: string[] = commonPasswordsData;
 
 @ValidatorConstraint({ async: false })
 export class IsStrongPasswordConstraint implements ValidatorConstraintInterface {

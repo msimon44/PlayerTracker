@@ -151,7 +151,7 @@ describe('Auth Platform Restrictions (e2e)', () => {
                 })
                 .expect(400);
 
-            expect(response.body.message).toContain('platform');
+            expect(response.body.message).toEqual(expect.arrayContaining([expect.stringMatching(/platform/i)]));
         });
     });
 
@@ -244,7 +244,7 @@ describe('Auth Platform Restrictions (e2e)', () => {
                 })
                 .expect(400);
 
-            expect(response.body.message).toContain('platform');
+            expect(response.body.message).toEqual(expect.arrayContaining([expect.stringMatching(/platform/i)]));
         });
     });
 });
