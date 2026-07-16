@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { APP_PIPE } from '@nestjs/core';
-import { AuditLogsModule } from 'modules/audit-logs/audit-logs.module';
-import { MetricsModule } from 'modules/metrics/metrics.module';
-import { PositionsModule } from 'modules/positions/positions.module';
-import { SensitivePlayerDataModule } from 'modules/sensitive-player-data/sensitive-player-data.module';
-import { SportsModule } from 'modules/sports/sports.module';
+import { AuditLogsModule } from './modules/audit-logs/audit-logs.module';
+import { MetricsModule } from './modules/metrics/metrics.module';
+import { PositionsModule } from './modules/positions/positions.module';
+import { SensitivePlayerDataModule } from './modules/sensitive-player-data/sensitive-player-data.module';
+import { SportsModule } from './modules/sports/sports.module';
 import { ZodValidationPipe } from 'nestjs-zod';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';

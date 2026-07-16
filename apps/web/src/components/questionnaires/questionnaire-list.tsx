@@ -94,7 +94,7 @@ export function QuestionnaireList({ questionnaires }: QuestionnaireListProps) {
             });
 
             router.push(`/questionnaires/${result.id}`);
-        } catch (error) {
+        } catch (_error) {
             toast({
                 title: 'Erreur',
                 description: 'Impossible de dupliquer le questionnaire.',
@@ -119,7 +119,7 @@ export function QuestionnaireList({ questionnaires }: QuestionnaireListProps) {
                 title: 'Questionnaire supprimé',
                 description: 'Le questionnaire a été supprimé avec succès.',
             });
-        } catch (error) {
+        } catch (_error) {
             toast({
                 title: 'Erreur',
                 description: 'Impossible de supprimer le questionnaire.',

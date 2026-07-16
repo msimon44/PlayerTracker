@@ -144,7 +144,6 @@ export default function EditPlayerPage() {
     });
 
     const form = useForm<EditPlayerForm>({
-        // @ts-ignore
         resolver: zodResolver(editPlayerSchema),
         defaultValues: {
             firstName: '',

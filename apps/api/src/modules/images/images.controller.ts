@@ -24,7 +24,7 @@ export class ImagesController {
         try {
             const imagePath = await this.imagesService.getImagePath(filename);
             return res.sendFile(imagePath);
-        } catch (error) {
+        } catch (_error) {
             throw new NotFoundException(`Image ${filename} not found`);
         }
     }

@@ -6,8 +6,6 @@
  */
 
 import type { Config } from 'tailwindcss';
-import { lightTheme, darkTheme } from './src/constants/themes';
-import { BRAND_COLORS } from './src/constants/colors';
 
 const baseConfig: Partial<Config> = {
     darkMode: ['class'],
@@ -33,9 +31,9 @@ const baseConfig: Partial<Config> = {
 
                 // Primary brand color (lime green)
                 primary: {
-                    DEFAULT: `rgb(var(--primary))`,
-                    light: `rgb(var(--primary) / 0.9)`,
-                    dark: `rgb(var(--primary) / 0.2)`,
+                    DEFAULT: 'rgb(var(--primary))',
+                    light: 'rgb(var(--primary) / 0.9)',
+                    dark: 'rgb(var(--primary) / 0.2)',
                     foreground: 'hsl(var(--primary-foreground))',
                 },
 

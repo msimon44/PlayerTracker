@@ -15,7 +15,7 @@ export class ImagesService {
                 images: imageFiles,
                 baseUrl: '/public/images',
             };
-        } catch (error) {
+        } catch (_error) {
             return { images: [], baseUrl: '/public/images' };
         }
     }
@@ -26,7 +26,7 @@ export class ImagesService {
         try {
             await fs.access(imagePath);
             return imagePath;
-        } catch (error) {
+        } catch (_error) {
             throw new NotFoundException(`Image ${filename} not found`);
         }
     }

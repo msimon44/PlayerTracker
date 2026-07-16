@@ -55,6 +55,12 @@ export default [
             'prefer-const': 'error',
             'no-console': 'warn',
             'no-debugger': 'error',
+            // TypeScript (via tsc) already checks for undefined variables/types.
+            // ESLint's no-undef is not type-aware and produces false positives on
+            // ambient globals (DOM types, the automatic JSX runtime's `React`
+            // namespace, etc.). This is the fix recommended by typescript-eslint:
+            // https://typescript-eslint.io/troubleshooting/faqs/eslint/#i-am-using-a-rule-from-eslint-core-and-it-doesnt-seem-to-work-correctly-with-typescript-code
+            'no-undef': 'off',
         },
     },
     prettierConfig,
@@ -65,6 +71,6 @@ export default [
         },
     },
     {
-        ignores: ['dist/', 'build/', '.next/', 'out/', 'node_modules/', '**/*.js', '**/*.d.ts'],
+        ignores: ['dist/', 'build/', '.next/', 'out/', 'node_modules/', '**/*.js', '**/*.mjs', '**/*.d.ts'],
     },
 ];

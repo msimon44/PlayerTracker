@@ -104,7 +104,7 @@ export function QuestionsList({ questions, questionnaireId, onEdit, disabled = f
                 title: 'Ordre mis à jour',
                 description: 'Les questions ont été réorganisées.',
             });
-        } catch (error) {
+        } catch (_error) {
             toast({
                 title: 'Erreur',
                 description: "Impossible de mettre à jour l'ordre des questions.",
@@ -129,7 +129,7 @@ export function QuestionsList({ questions, questionnaireId, onEdit, disabled = f
                 title: 'Question supprimée',
                 description: 'La question a été supprimée avec succès.',
             });
-        } catch (error) {
+        } catch (_error) {
             toast({
                 title: 'Erreur',
                 description: 'Impossible de supprimer la question.',

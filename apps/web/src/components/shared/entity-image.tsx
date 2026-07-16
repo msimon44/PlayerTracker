@@ -22,7 +22,7 @@ export function EntityImage({
     size = 'md',
     shape = 'square',
     className = '',
-    type = 'team',
+    type: _type = 'team',
 }: EntityImageProps) {
     const sizeClass = sizeClasses[size];
     const shapeClass = shape === 'circle' ? 'rounded-full' : 'rounded';

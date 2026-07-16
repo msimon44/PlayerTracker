@@ -19,7 +19,7 @@ export default function ScanQRScreen() {
                     Nous avons besoin de scanner le QR code de votre club pour configurer votre compte.
                 </Text>
                 <TouchableOpacity style={styles.permissionButton} onPress={requestPermission}>
-                    <Text style={styles.permissionButtonText}>Autoriser l'accès</Text>
+                    <Text style={styles.permissionButtonText}>Autoriser l&apos;accès</Text>
                 </TouchableOpacity>
             </View>
         );
@@ -69,7 +69,7 @@ export default function ScanQRScreen() {
                             <Text style={styles.skipText}>
                                 Déjà le code organisation ?{'\n'}
                                 <Text style={{ fontWeight: 'bold', textDecorationLine: 'underline' }}>
-                                    Aller directement à l'inscription
+                                    Aller directement à l&apos;inscription
                                 </Text>
                             </Text>
                         </TouchableOpacity>

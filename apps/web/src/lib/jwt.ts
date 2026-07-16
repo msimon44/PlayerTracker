@@ -41,7 +41,7 @@ export function decodeJwt(token: string): JwtPayload | null {
         }
         const decoded = Buffer.from(payload, 'base64').toString('utf-8');
         return JSON.parse(decoded);
-    } catch (error) {
+    } catch (_error) {
         return null;
     }
 }

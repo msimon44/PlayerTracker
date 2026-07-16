@@ -82,7 +82,7 @@ export const customInstance = <T>(config: AxiosRequestConfig, options?: AxiosReq
         cancelToken: source.token,
     }).then(({ data }) => data);
 
-    // @ts-ignore
+    // @ts-expect-error: on attache une méthode cancel personnalisée à la Promise (non prévue par son type)
     promise.cancel = () => {
         source.cancel('Query was cancelled');
     };

@@ -169,7 +169,6 @@ export function QuestionBuilder({ open, onOpenChange, questionnaireId, question,
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
                         {/* prettier-ignore */}
-                        {/* @ts-ignore: Type incompatibility avec exactOptionalPropertyTypes */}
                         <FormField
                             control={form.control}
                             name='title'
@@ -185,7 +184,6 @@ export function QuestionBuilder({ open, onOpenChange, questionnaireId, question,
                         />
 
                         {/* prettier-ignore */}
-                        {/* @ts-ignore: Type incompatibility avec exactOptionalPropertyTypes */}
                         <FormField
                             control={form.control}
                             name='type'
@@ -254,7 +252,6 @@ export function QuestionBuilder({ open, onOpenChange, questionnaireId, question,
                         )}
 
                         {/* prettier-ignore */}
-                        {/* @ts-ignore: Type incompatibility avec exactOptionalPropertyTypes */}
                         <FormField
                             control={form.control}
                             name='isRequired'
