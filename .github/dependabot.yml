@@ -1,0 +1,36 @@
+version: 2
+updates:
+  # Dépendances npm/pnpm du monorepo (une seule entrée : pnpm-workspace
+  # couvre tous les apps/packages depuis la racine)
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+    open-pull-requests-limit: 10
+    groups:
+      # Regroupe les mises à jour mineures/patch pour limiter le bruit de PRs ;
+      # les mises à jour majeures restent séparées pour revue individuelle.
+      minor-and-patch:
+        update-types:
+          - 'minor'
+          - 'patch'
+
+  # Images Docker de base (Dockerfiles)
+  - package-ecosystem: 'docker'
+    directory: '/apps/api'
+    schedule:
+      interval: 'weekly'
+  - package-ecosystem: 'docker'
+    directory: '/apps/web'
+    schedule:
+      interval: 'weekly'
+  - package-ecosystem: 'docker'
+    directory: '/apps/landing'
+    schedule:
+      interval: 'weekly'
+
+  # Actions GitHub utilisées dans le pipeline CI/CD
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
