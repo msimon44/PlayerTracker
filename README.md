@@ -158,7 +158,18 @@ import { formatDate, capitalize } from '@playertracker/utils';
 ## 📖 Documentation
 
 - **[CONTRIBUTING.md](./CONTRIBUTING.md)** - Guide de contribution
+- **[CHANGELOG.md](./CHANGELOG.md)** - Journal de version
 - **Swagger UI** - <http://localhost:3001/docs> (en développement)
+
+### Documentation projet (dossier `docs/`)
+
+- **[Manuel de déploiement](./docs/manuel-deploiement.md)**
+- **[Manuel d'utilisation](./docs/manuel-utilisation.md)**
+- **[Manuel de mise à jour](./docs/manuel-mise-a-jour.md)**
+- **[Cahier de recettes](./docs/cahier-de-recettes.md)**
+- **[Plan de correction des bogues](./docs/plan-correction-bogues.md)**
+- **[Synthèse sécurité OWASP](./docs/securite-owasp.md)**
+- **[Démarche accessibilité (RGAA)](./docs/accessibilite.md)**
 
 ---
 
