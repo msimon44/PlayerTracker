@@ -1,6 +1,6 @@
 # Multi-stage build for production, basé sur le pattern officiel Turborepo
 # (https://turborepo.com/docs/guides/tools/docker) pour un monorepo pnpm + Next.js.
-FROM node:20-alpine AS base
+FROM node:26-alpine AS base
 
 # ---------------------------------------------------------------------------
 # 1. Builder : élague le monorepo pour ne garder que ce dont le web a besoin
