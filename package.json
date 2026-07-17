@@ -44,10 +44,10 @@
         "prepare": "husky"
     },
     "devDependencies": {
-        "@turbo/gen": "^2.6.0",
+        "@turbo/gen": "^2.10.5",
         "husky": "^9.1.7",
-        "prettier": "^3.6.2",
-        "turbo": "^2.6.0",
+        "prettier": "^3.9.5",
+        "turbo": "^2.10.5",
         "typescript": "^5.9.3"
     },
     "packageManager": "pnpm@10.12.2",
