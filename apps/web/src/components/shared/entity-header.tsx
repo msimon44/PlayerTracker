@@ -29,13 +29,13 @@ export function EntityHeader({ title, description, icon, image, onEdit, onDelete
             {(onEdit || onDelete) && (
                 <div className='flex gap-2'>
                     {onEdit && (
-                        <Button variant='outline' size='icon' onClick={onEdit}>
-                            <Edit className='h-4 w-4' />
+                        <Button variant='outline' size='icon' onClick={onEdit} aria-label='Modifier'>
+                            <Edit className='h-4 w-4' aria-hidden='true' />
                         </Button>
                     )}
                     {onDelete && (
-                        <Button variant='destructive' size='icon' onClick={onDelete}>
-                            <Trash2 className='h-4 w-4' />
+                        <Button variant='destructive' size='icon' onClick={onDelete} aria-label='Supprimer'>
+                            <Trash2 className='h-4 w-4' aria-hidden='true' />
                         </Button>
                     )}
                 </div>

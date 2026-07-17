@@ -21,7 +21,7 @@ export default function RootLayout({
     children: React.ReactNode;
 }>): React.JSX.Element {
     return (
-        <html lang='en' suppressHydrationWarning>
+        <html lang='fr' suppressHydrationWarning>
             <body className={cn('min-h-screen bg-background font-sans antialiased', fontSans.variable)}>
                 <ThemeProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
                     {children}

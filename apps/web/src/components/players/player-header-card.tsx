@@ -58,16 +58,23 @@ export function PlayerHeaderCard({ player, onEdit, onDelete, children }: PlayerH
 
             {/* Update button - Top right */}
             <div className='absolute top-4 right-4 flex gap-2'>
-                <Button variant='outline' size='icon' onClick={onEdit} className='bg-background/80 backdrop-blur-sm'>
-                    <Edit className='h-4 w-4' />
+                <Button
+                    variant='outline'
+                    size='icon'
+                    onClick={onEdit}
+                    className='bg-background/80 backdrop-blur-sm'
+                    aria-label='Modifier le joueur'
+                >
+                    <Edit className='h-4 w-4' aria-hidden='true' />
                 </Button>
                 <Button
                     variant='destructive'
                     size='icon'
                     onClick={onDelete}
                     className='bg-destructive/80 backdrop-blur-sm hover:bg-destructive'
+                    aria-label='Supprimer le joueur'
                 >
-                    <Trash2 className='h-4 w-4' />
+                    <Trash2 className='h-4 w-4' aria-hidden='true' />
                 </Button>
             </div>
         </div>

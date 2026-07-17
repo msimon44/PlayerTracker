@@ -215,14 +215,14 @@ export default function CalendarPage() {
                         </CardDescription>
                     </div>
                     <div className='flex gap-2'>
-                        <Button variant='outline' size='icon' onClick={goPrevious}>
-                            <ChevronLeft className='h-4 w-4' />
+                        <Button variant='outline' size='icon' onClick={goPrevious} aria-label='Période précédente'>
+                            <ChevronLeft className='h-4 w-4' aria-hidden='true' />
                         </Button>
                         <Button variant='outline' onClick={() => setCurrentDate(new Date())}>
                             Aujourd’hui
                         </Button>
-                        <Button variant='outline' size='icon' onClick={goNext}>
-                            <ChevronRight className='h-4 w-4' />
+                        <Button variant='outline' size='icon' onClick={goNext} aria-label='Période suivante'>
+                            <ChevronRight className='h-4 w-4' aria-hidden='true' />
                         </Button>
                     </div>
                 </CardHeader>

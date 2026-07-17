@@ -166,8 +166,8 @@ export default function QuestionnaireResultPage({ params }: QuestionnaireResultP
         <div className='space-y-6'>
             <div className='flex flex-col gap-4 md:flex-row md:items-center md:justify-between'>
                 <div className='flex items-center gap-4'>
-                    <Button variant='ghost' size='icon' onClick={() => router.back()}>
-                        <ArrowLeft className='h-4 w-4' />
+                    <Button variant='ghost' size='icon' onClick={() => router.back()} aria-label='Retour'>
+                        <ArrowLeft className='h-4 w-4' aria-hidden='true' />
                     </Button>
                     <div>
                         <h1 className='text-3xl font-bold tracking-tight'>{data.title}</h1>
