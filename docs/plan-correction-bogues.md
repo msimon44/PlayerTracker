@@ -41,6 +41,7 @@ explique le "pourquoi" en plus du "quoi".
 | 10 routes POST documentées "200" dans Swagger mais renvoyant 201 (défaut NestJS sans `@HttpCode`)                                                                                                                                                                | 🟠      | Test e2e (`expected 200, got 201`)                                           | `@HttpCode(HttpStatus.OK)` ajouté aux 10 routes concernées                                   |
 | `ClubsService.findOne`, `TeamsService` (x2), `StaffController` : `throw new Error(...)` générique au lieu d'une exception NestJS → le filtre d'exception global renvoyait **500** au lieu de 404/401                                                             | 🟠      | Écriture des tests unitaires `teams.service.spec.ts`/`clubs.service.spec.ts` | `NotFoundException`/`UnauthorizedException`                                                  |
 | Vérification "mot de passe courant" : code mort (aucune entrée de la liste des 1000 mots de passe courants ne contient de caractère spécial, donc la règle ne pouvait jamais se déclencher pour un mot de passe qui passe par ailleurs les règles de complexité) | 🟠      | Écriture des tests unitaires `password-strength.validator.spec.ts`           | Ajout d'une comparaison sur la version "lettres seules" du mot de passe                      |
+| `UsersService.create()` : interceptait sa propre `BadRequestException` ("mot de passe requis") dans son bloc `catch` et la transformait en `InternalServerErrorException` (500 au lieu de 400)                                                                   | 🟠      | Écriture des tests unitaires `users.service.spec.ts`                         | Re-lancer aussi `BadRequestException`, pas seulement `ConflictException`                     |
 | `storeAuthorizationCode` : timer de nettoyage (15 min) sans `.unref()`, empêchant l'arrêt propre du process                                                                                                                                                      | 🟡      | Tests unitaires locaux (Jest ne se terminait pas)                            | `.unref()` ajouté, `--forceExit` en CI en défense supplémentaire                             |
 
 ## Sécurité
@@ -67,7 +68,7 @@ explique le "pourquoi" en plus du "quoi".
 
 ## Bilan
 
-**29 anomalies distinctes** détectées et corrigées, dont **6 bloquantes** (empêchant le démarrage de l'application ou la
+**30 anomalies distinctes** détectées et corrigées, dont **6 bloquantes** (empêchant le démarrage de l'application ou la
 réussite du pipeline), **2 failles de sécurité** (dont une RCE critique) et **3 non-conformités d'accessibilité**.
 Aucune n'a été identifiée par une relecture "à froid" isolée : toutes sont sorties de l'usage réel d'un harnais de tests
 (unitaires, e2e), d'un pipeline CI strict (lint, type-check, audit de dépendances) et d'audits ciblés — ce qui illustre
