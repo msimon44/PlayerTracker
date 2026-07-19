@@ -9,7 +9,7 @@ trois types de test, tous automatisés et exécutés à chaque push dans le pipe
   produit le résultat attendu, sur une vraie base PostgreSQL éphémère.
 - **Tests de sécurité** : scénarios ciblant spécifiquement les règles d'autorisation et de validation.
 
-Statut au **19/07/2026** : 199 tests unitaires + 12 tests e2e, tous passants (voir le badge CI dans le README). Chaque
+Statut au **19/07/2026** : 318 tests unitaires + 12 tests e2e, tous passants (voir le badge CI dans le README). Chaque
 scénario ci-dessous est traçable jusqu'au fichier de test correspondant.
 
 ## 1. Authentification — Inscription
