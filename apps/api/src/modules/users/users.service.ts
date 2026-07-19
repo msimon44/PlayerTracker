@@ -281,7 +281,7 @@ export class UsersService {
                 updatedAt: user.updatedAt,
             };
         } catch (error) {
-            if (error instanceof ConflictException) {
+            if (error instanceof ConflictException || error instanceof BadRequestException) {
                 throw error;
             }
             if (error instanceof PrismaClientKnownRequestError) {
