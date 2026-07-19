@@ -166,6 +166,7 @@ import { formatDate, capitalize } from '@playertracker/utils';
 - **[Manuel de déploiement](./docs/manuel-deploiement.md)**
 - **[Manuel d'utilisation](./docs/manuel-utilisation.md)**
 - **[Manuel de mise à jour](./docs/manuel-mise-a-jour.md)**
+- **[User stories](./docs/user-stories.md)**
 - **[Cahier de recettes](./docs/cahier-de-recettes.md)**
 - **[Plan de correction des bogues](./docs/plan-correction-bogues.md)**
 - **[Synthèse sécurité OWASP](./docs/securite-owasp.md)**
