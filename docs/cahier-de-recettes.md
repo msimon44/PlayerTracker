@@ -85,15 +85,49 @@ scénario ci-dessous est traçable jusqu'au fichier de test correspondant.
 | 5.11 | Suppression d'un joueur ayant un compte utilisateur lié       | Le compte utilisateur est supprimé avant le joueur (suppression en cascade) | Structurel | idem                      |
 | 5.12 | Suppression d'un joueur inexistant                            | `404 Not Found`                                                             | Structurel | idem                      |
 
-## 6. Disponibilité de service
+## 6. Questionnaires — statuts et cycle de vie
+
+| #    | Scénario                                                                                | Résultat attendu                                                                                                                                  | Type       | Fichier                          |
+| ---- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | -------------------------------- |
+| 6.1  | Consultation des résultats d'un questionnaire en brouillon                              | `400 Bad Request` — résultats disponibles seulement après clôture                                                                                 | Structurel | `questionnaires.service.spec.ts` |
+| 6.2  | Consultation des résultats d'un questionnaire publié mais non encore clos               | `400 Bad Request`                                                                                                                                 | Structurel | idem                             |
+| 6.3  | Consultation des résultats une fois le statut `COMPLETED`                               | Résultats retournés                                                                                                                               | Structurel | idem                             |
+| 6.4  | Consultation des résultats une fois la date de clôture dépassée (statut non mis à jour) | Résultats retournés malgré tout                                                                                                                   | Structurel | idem                             |
+| 6.5  | Liste des répondants — calcul du taux de réponse                                        | Le joueur ayant répondu à au moins une question est marqué "a répondu", avec la date de sa réponse la plus récente                                | Structurel | idem                             |
+| 6.6  | Modification ou suppression d'un questionnaire en brouillon                             | Autorisé                                                                                                                                          | Structurel | idem                             |
+| 6.7  | Modification ou suppression d'un questionnaire déjà publié                              | `400 Bad Request` — seul un brouillon peut être modifié/supprimé                                                                                  | Structurel | idem                             |
+| 6.8  | Ajout d'une question à un questionnaire non-brouillon                                   | `400 Bad Request` (même règle, dupliquée et testée côté module `questions`)                                                                       | Structurel | `questions.service.spec.ts`      |
+| 6.9  | Réponse à une question : complétion automatique du questionnaire                        | Une fois que tous les joueurs actifs de l'équipe ont répondu à toutes les questions obligatoires, le statut bascule automatiquement à `COMPLETED` | Structurel | `answers.service.spec.ts`        |
+| 6.10 | Réponse partielle (tous les joueurs n'ont pas encore répondu)                           | Le questionnaire reste `ACTIVE`, pas de bascule automatique                                                                                       | Structurel | idem                             |
+
+## 7. Suivi individuel par événement (notes de match)
+
+| #   | Scénario                                                    | Résultat attendu                                               | Type       | Fichier                              |
+| --- | ----------------------------------------------------------- | -------------------------------------------------------------- | ---------- | ------------------------------------ |
+| 7.1 | Première note de staff sur un joueur pour un match donné    | Création de la note (`upsert` sur la paire événement + joueur) | Structurel | `match-player-notes.service.spec.ts` |
+| 7.2 | Nouvelle note du staff pour le même couple événement/joueur | La note existante est mise à jour plutôt que dupliquée         | Structurel | idem                                 |
+| 7.3 | Liste des notes filtrée par événement et/ou par joueur      | Filtres combinables indépendamment                             | Structurel | idem                                 |
+| 7.4 | Modification d'une note inexistante                         | `404 Not Found`                                                | Structurel | idem                                 |
+
+## 8. Référentiels de configuration (sports, positions, clubs, staff)
+
+| #   | Scénario                                                           | Résultat attendu                                                                       | Type       | Fichier                     |
+| --- | ------------------------------------------------------------------ | -------------------------------------------------------------------------------------- | ---------- | --------------------------- |
+| 8.1 | Consultation d'un sport avec ses postes et modèles associés        | Détail retourné avec les relations                                                     | Structurel | `sports.service.spec.ts`    |
+| 8.2 | Consultation d'un poste (position) inexistant                      | `404 Not Found`                                                                        | Structurel | `positions.service.spec.ts` |
+| 8.3 | Consultation du profil du membre du staff actuellement connecté    | Profil retourné à partir de l'identifiant utilisateur authentifié                      | Structurel | `staff.controller.spec.ts`  |
+| 8.4 | Accès à `/staff/me` sans utilisateur authentifié (garde défensive) | `401 Unauthorized`                                                                     | Sécurité   | idem                        |
+| 8.5 | Visibilité des métriques d'un joueur                               | Une métrique n'est visible que si le questionnaire dont elle est issue est `COMPLETED` | Structurel | `metrics.service.spec.ts`   |
+
+## 9. Disponibilité de service
 
 | #   | Scénario                        | Résultat attendu                             | Type        | Fichier           |
 | --- | ------------------------------- | -------------------------------------------- | ----------- | ----------------- |
-| 6.1 | Vérification de l'état de l'API | `GET /health` → `200 OK`, `{ status: 'ok' }` | Fonctionnel | `app.e2e-spec.ts` |
+| 9.1 | Vérification de l'état de l'API | `GET /health` → `200 OK`, `{ status: 'ok' }` | Fonctionnel | `app.e2e-spec.ts` |
 
 ## Traçabilité avec le plan de correction des bogues
 
-Plusieurs scénarios de ce cahier de recettes (1.7 à 1.10, 3.4-3.5, 4.4-4.6, 5.3, 5.8, 5.9, 5.12) correspondent
+Plusieurs scénarios de ce cahier de recettes (1.7 à 1.10, 3.4-3.5, 4.4-4.6, 5.3, 5.8, 5.9, 5.12, 8.4) correspondent
 directement à des anomalies détectées puis corrigées — voir `docs/plan-correction-bogues.md`. Le cahier de recettes
 n'est donc pas une liste théorique rédigée a priori : chaque cas d'erreur qui y figure a été vérifié comme produisant
 réellement le comportement attendu après correction.
