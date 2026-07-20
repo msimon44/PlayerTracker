@@ -4,7 +4,7 @@ import { ImagesService } from './images.service';
 
 describe('ImagesController', () => {
     let controller: ImagesController;
-    let service: Record<string, jest.Mock>;
+    let service: { listImages: jest.Mock; getImagePath: jest.Mock };
     let res: { sendFile: jest.Mock };
 
     beforeEach(() => {

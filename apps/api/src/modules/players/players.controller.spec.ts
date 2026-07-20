@@ -3,7 +3,7 @@ import { PlayersService } from './players.service';
 
 describe('PlayersController', () => {
     let controller: PlayersController;
-    let service: Record<string, jest.Mock>;
+    let service: { findAll: jest.Mock; findOne: jest.Mock; create: jest.Mock; update: jest.Mock; remove: jest.Mock };
 
     beforeEach(() => {
         service = {

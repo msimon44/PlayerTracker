@@ -3,7 +3,16 @@ import { TeamsService } from './teams.service';
 
 describe('TeamsController', () => {
     let controller: TeamsController;
-    let service: Record<string, jest.Mock>;
+    let service: {
+        findAll: jest.Mock;
+        findOne: jest.Mock;
+        findTeamsByClubId: jest.Mock;
+        create: jest.Mock;
+        update: jest.Mock;
+        remove: jest.Mock;
+        assignPlayerToTeam: jest.Mock;
+        removePlayerFromTeam: jest.Mock;
+    };
 
     beforeEach(() => {
         service = {

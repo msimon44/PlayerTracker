@@ -3,7 +3,15 @@ import { QuestionnairesService } from './questionnaires.service';
 
 describe('QuestionnairesController', () => {
     let controller: QuestionnairesController;
-    let service: Record<string, jest.Mock>;
+    let service: {
+        findAll: jest.Mock;
+        findResults: jest.Mock;
+        findRespondents: jest.Mock;
+        findOne: jest.Mock;
+        create: jest.Mock;
+        update: jest.Mock;
+        remove: jest.Mock;
+    };
 
     beforeEach(() => {
         service = {

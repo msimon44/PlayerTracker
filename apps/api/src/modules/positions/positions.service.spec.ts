@@ -32,7 +32,7 @@ describe('PositionsService', () => {
         const result = await service.findAll();
 
         expect(result).toHaveLength(1);
-        expect(result[0].name).toBe('Gardien');
+        expect(result[0]?.name).toBe('Gardien');
     });
 
     describe('findOne', () => {

@@ -4,7 +4,14 @@ import { UsersService } from './users.service';
 
 describe('UsersController', () => {
     let controller: UsersController;
-    let service: Record<string, jest.Mock>;
+    let service: {
+        findAll: jest.Mock;
+        findOne: jest.Mock;
+        findByEmail: jest.Mock;
+        create: jest.Mock;
+        update: jest.Mock;
+        remove: jest.Mock;
+    };
 
     beforeEach(() => {
         service = {

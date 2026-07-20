@@ -4,7 +4,14 @@ import { StaffService } from './staff.service';
 
 describe('StaffController', () => {
     let controller: StaffController;
-    let service: Record<string, jest.Mock>;
+    let service: {
+        findAll: jest.Mock;
+        findOne: jest.Mock;
+        findByUserId: jest.Mock;
+        create: jest.Mock;
+        update: jest.Mock;
+        remove: jest.Mock;
+    };
 
     beforeEach(() => {
         service = {

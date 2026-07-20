@@ -34,8 +34,8 @@ describe('AuditLogsService', () => {
         const result = await service.findAll();
 
         expect(result).toHaveLength(1);
-        expect(result[0].entity).toBe('Player');
-        expect(result[0].entityId).toBe(5);
+        expect(result[0]?.entity).toBe('Player');
+        expect(result[0]?.entityId).toBe(5);
     });
 
     describe('findOne', () => {

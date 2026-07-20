@@ -4,7 +4,22 @@ import { AuthService } from '../services/auth.service';
 
 describe('AuthController', () => {
     let controller: AuthController;
-    let authService: Record<string, jest.Mock>;
+    let authService: {
+        register: jest.Mock;
+        login: jest.Mock;
+        refreshTokens: jest.Mock;
+        exchangeAuthorizationCode: jest.Mock;
+        verifyEmail: jest.Mock;
+        resendVerificationEmail: jest.Mock;
+        forgotPassword: jest.Mock;
+        resetPassword: jest.Mock;
+        changePassword: jest.Mock;
+        confirmOAuthLinking: jest.Mock;
+        logout: jest.Mock;
+        getUserProfile: jest.Mock;
+        generateAuthCode: jest.Mock;
+        storeAuthorizationCode: jest.Mock;
+    };
     let configService: { get: jest.Mock };
     let res: { redirect: jest.Mock };
 

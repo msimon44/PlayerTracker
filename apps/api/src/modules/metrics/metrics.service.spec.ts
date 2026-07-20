@@ -37,7 +37,7 @@ describe('MetricsService', () => {
         expect(prisma.metric.findMany).toHaveBeenCalledWith(
             expect.objectContaining({ where: { questionnaire: { status: 'COMPLETED' } } }),
         );
-        expect(result[0].recordedAt).toEqual(metricRecord.capturedAt);
+        expect(result[0]?.recordedAt).toEqual(metricRecord.capturedAt);
     });
 
     describe('findOne', () => {

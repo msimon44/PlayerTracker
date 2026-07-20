@@ -3,7 +3,7 @@ import { MatchPlayerNotesService } from './match-player-notes.service';
 
 describe('MatchPlayerNotesController', () => {
     let controller: MatchPlayerNotesController;
-    let service: Record<string, jest.Mock>;
+    let service: { findAll: jest.Mock; create: jest.Mock; update: jest.Mock };
 
     beforeEach(() => {
         service = { findAll: jest.fn(), create: jest.fn(), update: jest.fn() };

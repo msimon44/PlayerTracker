@@ -33,7 +33,7 @@ describe('SportsService', () => {
         const result = await service.findAll();
 
         expect(result).toHaveLength(1);
-        expect(result[0].name).toBe('Football');
+        expect(result[0]?.name).toBe('Football');
     });
 
     describe('findOne', () => {

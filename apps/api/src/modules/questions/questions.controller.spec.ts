@@ -3,7 +3,7 @@ import { QuestionsService } from './questions.service';
 
 describe('QuestionsController', () => {
     let controller: QuestionsController;
-    let service: Record<string, jest.Mock>;
+    let service: { findAll: jest.Mock; findOne: jest.Mock; create: jest.Mock; update: jest.Mock; remove: jest.Mock };
 
     beforeEach(() => {
         service = { findAll: jest.fn(), findOne: jest.fn(), create: jest.fn(), update: jest.fn(), remove: jest.fn() };

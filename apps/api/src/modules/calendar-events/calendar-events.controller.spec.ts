@@ -3,7 +3,7 @@ import { CalendarEventsService } from './calendar-events.service';
 
 describe('CalendarEventsController', () => {
     let controller: CalendarEventsController;
-    let service: Record<string, jest.Mock>;
+    let service: { findAll: jest.Mock };
 
     beforeEach(() => {
         service = { findAll: jest.fn() };
