@@ -43,6 +43,10 @@ graph LR
 
 ## 🚀 Démarrage Rapide
 
+> **Pas d'utilitaire `make` sur votre machine, ou besoin de lancer le projet rapidement pour évaluation ?** Voir
+> **[DEMARRAGE-RAPIDE.md](./DEMARRAGE-RAPIDE.md)** — procédure complète sans `make`, avec comptes de démonstration prêts
+> à l'emploi.
+
 ### Prérequis
 
 - Node.js 18+
