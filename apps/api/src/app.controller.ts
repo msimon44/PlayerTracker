@@ -1,11 +1,11 @@
-import { Controller, Get } from '@nestjs/common';
-import { Public } from './modules/auth/decorators/public.decorator';
+import { Controller } from '@nestjs/common';
 
+/**
+ * Contrôleur racine de l'API.
+ *
+ * Le point de contrôle /health est désormais exposé par le HealthModule
+ * (voir apps/api/src/modules/health), qui s'appuie sur NestJS Terminus
+ * pour vérifier la connectivité base de données et l'état mémoire.
+ */
 @Controller()
-export class AppController {
-    @Public()
-    @Get('health')
-    healthCheck() {
-        return { status: 'ok', message: 'PlayerTracker API is running' };
-    }
-}
+export class AppController {}
