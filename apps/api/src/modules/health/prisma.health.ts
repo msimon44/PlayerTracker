@@ -1,9 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import {
-    HealthIndicator,
-    HealthIndicatorResult,
-    HealthCheckError,
-} from '@nestjs/terminus';
+import { HealthIndicator, HealthIndicatorResult, HealthCheckError } from '@nestjs/terminus';
 import { PrismaService } from '../../prisma/prisma.service';
 
 /**
@@ -23,10 +19,7 @@ export class PrismaHealthIndicator extends HealthIndicator {
             return this.getStatus(key, true);
         } catch (error) {
             const message = error instanceof Error ? error.message : 'unknown error';
-            throw new HealthCheckError(
-                'Prisma health check failed',
-                this.getStatus(key, false, { message }),
-            );
+            throw new HealthCheckError('Prisma health check failed', this.getStatus(key, false, { message }));
         }
     }
 }
