@@ -9,24 +9,15 @@
  * En son absence, l'API démarre normalement sans télémétrie externe.
  */
 import * as Sentry from '@sentry/nestjs';
-import { nodeProfilingIntegration } from '@sentry/profiling-node';
 
-if (process.env['SENTRY_DSN']) {
+const dsn = process.env['SENTRY_DSN'];
+
+if (dsn) {
     Sentry.init({
-        dsn: process.env['SENTRY_DSN'],
+        dsn,
         environment: process.env['NODE_ENV'] || 'development',
         release: process.env['APP_VERSION'] || 'dev',
-        integrations: [nodeProfilingIntegration()],
-        // Échantillonnage : 100% des erreurs, 10% des traces de performance
+        // Échantillonnage des traces de performance : 10% des transactions
         tracesSampleRate: 0.1,
-        profilesSampleRate: 0.1,
-        // Ne pas remonter les erreurs 4xx (attendues côté client)
-        beforeSend(event) {
-            const status = event.contexts?.response?.status_code;
-            if (typeof status === 'number' && status >= 400 && status < 500) {
-                return null;
-            }
-            return event;
-        },
     });
 }
