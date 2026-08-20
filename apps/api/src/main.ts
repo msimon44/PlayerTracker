@@ -1,3 +1,8 @@
+// L'instrumentation Sentry doit être importée AVANT tout autre module applicatif
+// pour que l'auto-instrumentation Node.js (OpenTelemetry) fonctionne correctement.
+// Sentry ne s'active que si SENTRY_DSN est défini.
+import './sentry.instrument';
+
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';

@@ -1,0 +1,85 @@
+name: Healthcheck
+
+# Sonde externe de disponibilité de l'API PlayerTracker.
+# Le workflow interroge le point de contrôle /health toutes les 15 minutes
+# et envoie un courriel d'alerte à l'équipe technique en cas d'échec.
+#
+# Configuration requise (Settings > Secrets and variables > Actions) :
+#   - HEALTHCHECK_URL     : URL complète du endpoint (ex: https://api.playertracker.example.com/health)
+#                           Laisser vide tant que le service n'est pas déployé publiquement :
+#                           le workflow signalera simplement qu'aucune URL n'est configurée.
+#   - ALERT_SMTP_SERVER   : serveur SMTP (ex: smtp.gmail.com)
+#   - ALERT_SMTP_PORT     : port SMTP (ex: 465)
+#   - ALERT_SMTP_USERNAME : identifiant SMTP
+#   - ALERT_SMTP_PASSWORD : mot de passe SMTP (mot de passe d'application pour Gmail)
+#   - ALERT_EMAIL_FROM    : adresse expéditrice
+#   - ALERT_EMAIL_TO      : adresse(s) destinataire(s), séparées par des virgules
+#
+# Le workflow peut aussi être déclenché manuellement via l'onglet Actions.
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    name: Sonde /health
+    runs-on: ubuntu-latest
+    steps:
+      - name: Vérifier la configuration
+        id: config
+        run: |
+          if [ -z "${{ secrets.HEALTHCHECK_URL }}" ]; then
+            echo "::warning::HEALTHCHECK_URL non configurée : sonde en mode démonstration."
+            echo "configured=false" >> $GITHUB_OUTPUT
+          else
+            echo "configured=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Interroger le endpoint /health
+        if: steps.config.outputs.configured == 'true'
+        id: probe
+        run: |
+          set +e
+          RESPONSE=$(curl -s -o response.json -w "%{http_code}" --max-time 10 "${{ secrets.HEALTHCHECK_URL }}")
+          CURL_EXIT=$?
+          echo "http_status=$RESPONSE" >> $GITHUB_OUTPUT
+          echo "curl_exit=$CURL_EXIT" >> $GITHUB_OUTPUT
+          echo "---- Réponse brute ----"
+          cat response.json || echo "(pas de corps de réponse)"
+          echo ""
+          echo "---- Code HTTP : $RESPONSE ----"
+          if [ "$CURL_EXIT" -ne 0 ] || [ "$RESPONSE" != "200" ]; then
+            echo "status=down" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+          echo "status=up" >> $GITHUB_OUTPUT
+
+      - name: Alerte par courriel en cas d'échec
+        if: failure() && steps.config.outputs.configured == 'true'
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: ${{ secrets.ALERT_SMTP_SERVER }}
+          server_port: ${{ secrets.ALERT_SMTP_PORT }}
+          username: ${{ secrets.ALERT_SMTP_USERNAME }}
+          password: ${{ secrets.ALERT_SMTP_PASSWORD }}
+          from: PlayerTracker Monitoring <${{ secrets.ALERT_EMAIL_FROM }}>
+          to: ${{ secrets.ALERT_EMAIL_TO }}
+          subject: '[PlayerTracker] API indisponible'
+          body: |
+            La sonde de disponibilité de l'API PlayerTracker signale un incident.
+
+            URL sondée      : ${{ secrets.HEALTHCHECK_URL }}
+            Code HTTP reçu  : ${{ steps.probe.outputs.http_status }}
+            Code retour curl: ${{ steps.probe.outputs.curl_exit }}
+            Horodatage      : ${{ github.event.repository.pushed_at }}
+            Détails         : ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+            Actions recommandées :
+              1. Vérifier l'état des conteneurs applicatifs
+              2. Consulter les journaux Sentry pour identifier une erreur applicative
+              3. Contrôler la disponibilité de la base PostgreSQL
