@@ -70,7 +70,7 @@ jobs:
 
       - name: Alerte par courriel en cas d'échec
         if: failure() && steps.config.outputs.configured == 'true' && steps.config.outputs.email_configured == 'true'
-        uses: dawidd6/action-send-mail@v3
+        uses: dawidd6/action-send-mail@v18
         with:
           server_address: ${{ secrets.ALERT_SMTP_SERVER }}
           server_port: ${{ secrets.ALERT_SMTP_PORT }}
